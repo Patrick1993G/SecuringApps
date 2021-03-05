@@ -10,8 +10,11 @@ namespace SecuringApps_WebApplication.Data
     public class ApplicationUser : IdentityUser
     {
 
-        [Required]
+        //[Required]
+        [PersonalData]
         public String Address { get; set; }
+
+        public bool IsModerator { get; set; }
 
     }
 }

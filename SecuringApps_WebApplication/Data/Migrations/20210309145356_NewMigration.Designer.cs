@@ -10,8 +10,8 @@ using SecuringApps_WebApplication.Data;
 namespace SecuringApps_WebApplication.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210304123143_RemovedRequiredAddress")]
-    partial class RemovedRequiredAddress
+    [Migration("20210309145356_NewMigration")]
+    partial class NewMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

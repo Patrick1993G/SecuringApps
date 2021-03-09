@@ -2,7 +2,7 @@
 
 namespace SecuringApps_WebApplication.Data.Migrations
 {
-    public partial class RemovedRequiredAddress : Migration
+    public partial class NewMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

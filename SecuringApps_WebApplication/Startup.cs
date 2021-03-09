@@ -44,6 +44,7 @@ namespace SecuringApps_WebApplication
 
            services.Configure<IdentityOptions>(
                options => {
+                   //testing
                    options.SignIn.RequireConfirmedEmail = true;
                });
 

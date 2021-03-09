@@ -37,7 +37,8 @@ namespace ShoppingCart.IOC
               options.UseSqlServer(
                connectionString);//.UseLazyLoadingProxies();
                 }
-                ); 
+                );
+
 
             services.AddScoped<IProductsRepository, ProductsRepository>();
             services.AddScoped<IProductsService, ProductsService>();

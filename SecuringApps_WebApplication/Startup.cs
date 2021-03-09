@@ -32,8 +32,8 @@ namespace SecuringApps_WebApplication
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            DependencyContainer.RegisterServices(services, Configuration.GetConnectionString("DefaultConnection"));
-
+            //DependencyContainer.RegisterServices(services, Configuration.GetConnectionString("DefaultConnection"));
+            
             services.AddDefaultIdentity<ApplicationUser>(
                 options => {
                     options.SignIn.RequireConfirmedAccount = true;
@@ -42,22 +42,21 @@ namespace SecuringApps_WebApplication
                     })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            /*services.Configure<IdentityOptions>(
-                options =>
-                {
-                    options.SignIn.RequireConfirmedEmail = true;
-                });*/
+           services.Configure<IdentityOptions>(
+               options => {
+                   options.SignIn.RequireConfirmedEmail = true;
+               });
 
-            services.AddAuthentication().AddGoogle(
-                options =>
+            services.AddAuthentication()
+                .AddGoogle(options =>
                 {
-                    IConfigurationSection googleAuthNSection = 
-                        Configuration.GetSection("Authenticaion:Google");
+                    IConfigurationSection googleAuthNSection =
+                        Configuration.GetSection("Authentication:Google");
 
-                    options.ClientId = googleAuthNSection["ClientID"];
+                    options.ClientId = googleAuthNSection["ClientId"];
                     options.ClientSecret = googleAuthNSection["ClientSecret"];
                 });
-            
+
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

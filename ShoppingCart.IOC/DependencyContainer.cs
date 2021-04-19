@@ -32,22 +32,10 @@ namespace ShoppingCart.IOC
         public static void RegisterServices(IServiceCollection services, string connectionString)
         {
 
-            services.AddDbContext<ShoppingCartDbContext>(options =>
-          {
-              options.UseSqlServer(
-               connectionString);//.UseLazyLoadingProxies();
-                }
-                );
+            services.AddDbContext<ShoppingCartDbContext>(options => options.UseSqlServer(connectionString));
 
-
-            services.AddScoped<IProductsRepository, ProductsRepository>();
-            services.AddScoped<IProductsService, ProductsService>();
-
-            services.AddScoped<ICategoryRepository, CategoriesRepository>();
-            services.AddScoped<ICategoriesService, CategoriesService>();
-
-            services.AddScoped<IMembersRepository, MembersRepository>();
-            services.AddScoped<IMembersService, MemberService>();
+            services.AddScoped<IAssignmentsRepository, AssignmentsRepository>();
+            services.AddScoped<IAssignmentsService, AssignmentsService>();
 
             services.AddAutoMapper(typeof(AutoMapperConfiguration));
             AutoMapperConfiguration.RegisterMappings();

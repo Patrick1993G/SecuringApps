@@ -60,6 +60,7 @@ namespace SecuringApps_WebApplication
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+            DependencyContainer.RegisterServices(services, Configuration.GetConnectionString("DefaultConnection"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

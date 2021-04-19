@@ -11,8 +11,7 @@ namespace ShoppingCart.Application.AutoMapper
     {
         public DomainToViewModelProfile()
         {
-            CreateMap<Product, ProductViewModel>();
-            CreateMap<Category, CategoryViewModel>();
+            CreateMap<Assignment, AssignmentViewModel>();
             //Product class was used to model the database
             //ProductViewModel class was used to pass on the data to/from the Presentation project/layer
         }

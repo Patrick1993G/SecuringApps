@@ -11,6 +11,8 @@
     <Compile Remove="Data\Migrations\20210304120605_UpdatedApplicationUser.Designer.cs" />
     <Compile Remove="Data\Migrations\20210304123200_Remove email auth.cs" />
     <Compile Remove="Data\Migrations\20210304123200_Remove email auth.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210419171124_Initial Migration.cs" />
+    <Compile Remove="Data\Migrations\20210419171124_Initial Migration.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

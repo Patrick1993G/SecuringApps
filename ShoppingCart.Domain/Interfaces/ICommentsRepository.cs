@@ -6,10 +6,12 @@ using System.Text;
 
 namespace ShoppingCart.Domain.Interfaces
 {
-    public interface ICategoryRepository
+    public interface ICommentsRepository
     {
+        Comment GetComment(Guid id);
+        IQueryable<Comment> GetComments();
 
-        IQueryable<Category> GetCategories();
+        Guid AddComment(Comment c);
 
     }
 }

@@ -8,7 +8,7 @@ namespace ShoppingCart.Domain.Interfaces
 {
     public interface IStudentsRepository
     {
-        IQueryable<StudentAssignment> GetStudents();
+        IQueryable<Student> GetStudents();
 
         Guid AddStudent(Student s);
 

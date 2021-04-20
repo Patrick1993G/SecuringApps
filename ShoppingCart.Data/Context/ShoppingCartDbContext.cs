@@ -13,7 +13,7 @@ namespace ShoppingCart.Data.Context
         }
 
         public DbSet<Assignment> Assignments { get; set; }
-        public DbSet<StudentAssignment> Comments { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<StudentAssignment> StudentAssignments { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
@@ -22,7 +22,7 @@ namespace ShoppingCart.Data.Context
         {
 
             modelBuilder.Entity<Assignment>().Property(x => x.Id).HasDefaultValueSql("NEWID()");
-            modelBuilder.Entity<StudentAssignment>().Property(x => x.Id).HasDefaultValueSql("NEWID()");
+            modelBuilder.Entity<Comment>().Property(x => x.Id).HasDefaultValueSql("NEWID()");
             modelBuilder.Entity<Student>().Property(x => x.Id).HasDefaultValueSql("NEWID()");
             modelBuilder.Entity<StudentAssignment>().Property(x => x.Id).HasDefaultValueSql("NEWID()");
             modelBuilder.Entity<Teacher>().Property(x => x.Id).HasDefaultValueSql("NEWID()");

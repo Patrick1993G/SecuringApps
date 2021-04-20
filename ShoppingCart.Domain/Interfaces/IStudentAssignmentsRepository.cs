@@ -10,9 +10,9 @@ namespace ShoppingCart.Domain.Interfaces
     {
         StudentAssignment GetStudentAssignment(Guid id);
         IQueryable<StudentAssignment> GetStudentAssignments();
-        IQueryable<StudentAssignment> GetStudentAssignmentById(Guid id);
+        //IQueryable<StudentAssignment> GetStudentAssignmentById(Guid id);
         Guid AddStudentAssignment(StudentAssignment c);
 
-        bool SubmitAssignment(String filePath);
+        bool SubmitAssignment(String filePath, Guid id);
     }
 }

@@ -1,4 +1,5 @@
-﻿using ShoppingCart.Domain.Interfaces;
+﻿using ShoppingCart.Data.Context;
+using ShoppingCart.Domain.Interfaces;
 using ShoppingCart.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -9,14 +10,23 @@ namespace ShoppingCart.Data.Repositories
 {
     public class TeachersRepository : ITeachersRepository
     {
+        ShoppingCartDbContext _context;
+        public TeachersRepository(ShoppingCartDbContext context)
+        {
+            _context = context;
+
+        }
+
         public Guid AddTeacher(Teacher t)
         {
-            throw new NotImplementedException();
+            _context.Teachers.Add(t);
+            _context.SaveChanges();
+            return t.Id;
         }
 
         public IQueryable<Teacher> GetTeachers()
         {
-            throw new NotImplementedException();
+            return _context.Teachers;
         }
     }
 }

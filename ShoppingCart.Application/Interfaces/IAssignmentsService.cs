@@ -11,6 +11,7 @@ namespace ShoppingCart.Application.Interfaces
         IQueryable<AssignmentViewModel> GetAssignments();
         IQueryable<AssignmentViewModel> GetAssignments(string keyword);
 
+        IQueryable<AssignmentViewModel> GetAssignmentsByTeacherId(Guid id);
         AssignmentViewModel GetAssignment(Guid id);
 
         void AddAssignment(AssignmentViewModel model);

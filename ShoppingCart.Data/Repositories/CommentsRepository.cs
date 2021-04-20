@@ -16,24 +16,23 @@ namespace ShoppingCart.Data.Repositories
             _context = context;
 
         }
-        public Guid AddComment(StudentAssignment c)
+
+        public Guid AddComment(Comment c)
         {
-            throw new NotImplementedException();
+            _context.Comments.Add(c);
+            _context.SaveChanges();
+            return c.Id;
         }
 
-        public StudentAssignment GetComment(Guid id)
+        public Comment GetComment(Guid id)
         {
-            throw new NotImplementedException();
+            return _context.Comments.SingleOrDefault(c => c.Id == id);
         }
 
-        public IQueryable<StudentAssignment> GetComments()
+        public IQueryable<Comment> GetComments()
         {
-            throw new NotImplementedException();
+            return _context.Comments;
         }
 
-        public IQueryable<StudentAssignment> GetCommentsByAssignmentId(Guid id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

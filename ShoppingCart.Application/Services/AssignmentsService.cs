@@ -33,5 +33,10 @@ namespace ShoppingCart.Application.Services
         {
             throw new NotImplementedException();
         }
+
+        public IQueryable<AssignmentViewModel> GetAssignmentsByTeacherId(Guid id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

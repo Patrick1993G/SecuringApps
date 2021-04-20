@@ -16,29 +16,32 @@ namespace ShoppingCart.Data.Repositories
             _context = context;
 
         }
-        public Guid AddStudentAssignment(StudentAssignment c)
+        public Guid AddStudentAssignment(StudentAssignment s)
         {
-            throw new NotImplementedException();
+            _context.StudentAssignments.Add(s);
+            _context.SaveChanges();
+            return s.Id;
         }
 
         public StudentAssignment GetStudentAssignment(Guid id)
         {
-            throw new NotImplementedException();
-        }
-
-        public IQueryable<StudentAssignment> GetStudentAssignmentById(Guid id)
-        {
-            throw new NotImplementedException();
+            return _context.StudentAssignments.SingleOrDefault(s => s.Id == id);
         }
 
         public IQueryable<StudentAssignment> GetStudentAssignments()
         {
-            throw new NotImplementedException();
+            return _context.StudentAssignments;
         }
 
-        public bool SubmitAssignment(string filePath)
+        public bool SubmitAssignment(string filePath, Guid id)
         {
-            throw new NotImplementedException();
+            var assignment = GetStudentAssignment(id);
+            assignment.File = filePath;
+            assignment.Submitted = !assignment.Submitted;
+            _context.StudentAssignments.Update(assignment);
+            _context.SaveChanges();
+            return assignment.Submitted;
         }
+
     }
 }

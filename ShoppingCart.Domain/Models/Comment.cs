@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ShoppingCart.Domain.Models
 {
-    public class StudentAssignment
+    public class Comment
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

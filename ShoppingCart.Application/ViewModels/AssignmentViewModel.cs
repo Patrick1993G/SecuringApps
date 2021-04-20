@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShoppingCart.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -16,10 +17,12 @@ namespace ShoppingCart.Application.ViewModels
         public string Description { get; set; }
 
         [Required(ErrorMessage = "Please input the date published")]
-        public String PublishedDate { get; set; }
+        public string PublishedDate { get; set; }
 
         [Required(ErrorMessage = "Please input the deadline date")]
-        public String Deadline { get; set; }
+        public string Deadline { get; set; }
 
+        [Required(ErrorMessage = "Please input a Teacher")]
+        public Teacher Teacher { get; set; }
     }
 }

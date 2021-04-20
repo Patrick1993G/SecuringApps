@@ -18,12 +18,14 @@ namespace ShoppingCart.Data.Repositories
         }
         public Guid AddStudent(Student s)
         {
-            throw new NotImplementedException();
+            _context.Students.Add(s);
+            _context.SaveChanges();
+            return s.Id;
         }
 
-        public IQueryable<StudentAssignment> GetStudents()
+        public IQueryable<Student> GetStudents()
         {
-            throw new NotImplementedException();
+           return _context.Students;
         }
     }
 }

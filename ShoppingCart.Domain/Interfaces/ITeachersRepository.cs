@@ -8,9 +8,9 @@ namespace ShoppingCart.Domain.Interfaces
 {
     public interface ITeachersRepository
     {
-        IQueryable<Comment> GetStudents();
+        IQueryable<Teacher> GetTeachers();
 
-        Guid AddStudent(Student s);
+        Guid AddTeacher(Teacher t);
 
     }
 }

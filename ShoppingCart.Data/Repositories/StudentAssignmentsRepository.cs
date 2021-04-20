@@ -8,35 +8,35 @@ using System.Text;
 
 namespace ShoppingCart.Data.Repositories
 {
-    public class AssignmentsRepository : IAssignmentsRepository
+    public class StudentAssignmentsRepository : IStudentAssignmentsRepository
     {
         ShoppingCartDbContext _context;
-        public AssignmentsRepository(ShoppingCartDbContext context)
+        public StudentAssignmentsRepository(ShoppingCartDbContext context)
         {
             _context = context;
 
         }
-        public Guid AddAssignment(Assignment a)
+        public Guid AddStudentAssignment(StudentAssignment c)
         {
             throw new NotImplementedException();
         }
 
-        public Assignment GetAssignment(Guid id)
+        public StudentAssignment GetStudentAssignment(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<Assignment> GetAssignments()
+        public IQueryable<StudentAssignment> GetStudentAssignmentById(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<Assignment> GetAssignmentsByStudentId(Guid id)
+        public IQueryable<StudentAssignment> GetStudentAssignments()
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<Assignment> GetAssignmentsByTeacherId(Guid id)
+        public bool SubmitAssignment(string filePath)
         {
             throw new NotImplementedException();
         }

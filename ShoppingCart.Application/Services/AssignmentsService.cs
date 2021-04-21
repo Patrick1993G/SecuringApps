@@ -1,5 +1,9 @@
-﻿using ShoppingCart.Application.Interfaces;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.ViewModels;
+using ShoppingCart.Domain.Interfaces;
+using ShoppingCart.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,34 +13,37 @@ namespace ShoppingCart.Application.Services
 {
     public class AssignmentsService : IAssignmentsService
     {
-        public void AddAssignment(AssignmentViewModel model)
+        private IMapper _mapper;
+        private IAssignmentsRepository _assignmentsRepo;
+        public AssignmentsService(IAssignmentsRepository assignmentsRepository, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _mapper = mapper;
+            _assignmentsRepo = assignmentsRepository;
         }
 
-        public void DeleteAssignment(Guid id)
+        public void AddAssignment(AssignmentViewModel model)
         {
-            throw new NotImplementedException();
+            var assignment = _mapper.Map<Assignment>(model);
+            _assignmentsRepo.AddAssignment(assignment);
         }
 
         public AssignmentViewModel GetAssignment(Guid id)
         {
-            throw new NotImplementedException();
+            var assignment = _assignmentsRepo.GetAssignment(id);
+            var assignmentModel = _mapper.Map<AssignmentViewModel>(assignment);
+            return assignmentModel;
         }
 
         public IQueryable<AssignmentViewModel> GetAssignments()
         {
-            throw new NotImplementedException();
-        }
-
-        public IQueryable<AssignmentViewModel> GetAssignments(string keyword)
-        {
-            throw new NotImplementedException();
+            var assignments = _assignmentsRepo.GetAssignments().ProjectTo<AssignmentViewModel>(_mapper.ConfigurationProvider);
+            return assignments;
         }
 
         public IQueryable<AssignmentViewModel> GetAssignmentsByTeacherId(Guid id)
         {
-            throw new NotImplementedException();
+            var assignments = GetAssignments().Where(t => t.Teacher.Id == id).ProjectTo<AssignmentViewModel>(_mapper.ConfigurationProvider);
+            return assignments;
         }
     }
 }

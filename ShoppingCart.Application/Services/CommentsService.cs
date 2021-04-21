@@ -1,5 +1,8 @@
-﻿using ShoppingCart.Application.Interfaces;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.ViewModels;
+using ShoppingCart.Domain.Interfaces;
 using ShoppingCart.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -10,24 +13,37 @@ namespace ShoppingCart.Application.Services
 {
     public class CommentsService : ICommentsService
     {
+        private IMapper _mapper;
+        private ICommentsRepository _commentsRepo;
+        public CommentsService(ICommentsRepository commentsRepository, IMapper mapper)
+        {
+            _mapper = mapper;
+            _commentsRepo = commentsRepository;
+        }
+
         public void AddComment(CommentViewModel model)
         {
-            throw new NotImplementedException();
+            var comment = _mapper.Map<Comment>(model);
+            _commentsRepo.AddComment(comment);
         }
 
         public CommentViewModel GetComment(Guid id)
         {
-            throw new NotImplementedException();
+            var comment = _commentsRepo.GetComment(id);
+            var commentModel = _mapper.Map<CommentViewModel>(comment);
+            return commentModel;
         }
 
         public IQueryable<CommentViewModel> GetComments()
         {
-            throw new NotImplementedException();
+            var comments = _commentsRepo.GetComments().ProjectTo<CommentViewModel>(_mapper.ConfigurationProvider);
+            return comments;
         }
 
-        public IQueryable<Comment> GetCommentsByAssignmentId(Guid id)
+        public IQueryable<CommentViewModel> GetCommentsByAssignmentId(Guid id)
         {
-            throw new NotImplementedException();
+            var comments = GetComments().Where(a => a.StudentAssignment.AssignmentId == id).ProjectTo<CommentViewModel>(_mapper.ConfigurationProvider);
+            return comments;
         }
     }
 }

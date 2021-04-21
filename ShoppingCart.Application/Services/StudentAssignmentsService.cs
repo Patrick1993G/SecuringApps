@@ -1,5 +1,9 @@
-﻿using ShoppingCart.Application.Interfaces;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.ViewModels;
+using ShoppingCart.Domain.Interfaces;
+using ShoppingCart.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,29 +13,44 @@ namespace ShoppingCart.Application.Services
 {
     public class StudentAssignmentsService : IStudentAssignmentsService
     {
+        private IMapper _mapper;
+        private IStudentAssignmentsRepository _studentAssignmentsRepo;
+        public StudentAssignmentsService(IStudentAssignmentsRepository studentAssignmentsRepository, IMapper mapper)
+        {
+            _mapper = mapper;
+            _studentAssignmentsRepo = studentAssignmentsRepository;
+        }
+
         public Guid AddStudentAssignment(StudentAssignmentViewModel s)
         {
-            throw new NotImplementedException();
+            var studentAssignment = _mapper.Map<StudentAssignment>(s);
+            _studentAssignmentsRepo.AddStudentAssignment(studentAssignment);
+            return studentAssignment.Id;
         }
 
         public StudentAssignmentViewModel GetStudentAssignment(Guid id)
         {
-            throw new NotImplementedException();
+            var assignment = _studentAssignmentsRepo.GetStudentAssignment(id);
+            var assignmentModel = _mapper.Map<StudentAssignmentViewModel>(assignment);
+            return assignmentModel;
         }
 
         public IQueryable<StudentAssignmentViewModel> GetStudentAssignmentById(Guid id)
         {
-            throw new NotImplementedException();
+            var assignments = GetStudentAssignments().Where(s => s.Student.Id == id);
+            return assignments;
         }
 
         public IQueryable<StudentAssignmentViewModel> GetStudentAssignments()
         {
-            throw new NotImplementedException();
+            var assignments = _studentAssignmentsRepo.GetStudentAssignments().ProjectTo<StudentAssignmentViewModel>(_mapper.ConfigurationProvider);
+            return assignments;
         }
 
         public bool SubmitAssignment(string filePath, Guid id)
         {
-            throw new NotImplementedException();
+            _studentAssignmentsRepo.SubmitAssignment(filePath, id);
+            return true;
         }
     }
 }

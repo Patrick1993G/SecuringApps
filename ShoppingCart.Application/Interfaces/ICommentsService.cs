@@ -11,7 +11,7 @@ namespace ShoppingCart.Application.Interfaces
     {
         IQueryable<CommentViewModel> GetComments();
         CommentViewModel GetComment(Guid id);
-        IQueryable<Comment> GetCommentsByAssignmentId(Guid id);
+        IQueryable<CommentViewModel> GetCommentsByAssignmentId(Guid id);
         void AddComment(CommentViewModel model);
     }
 }

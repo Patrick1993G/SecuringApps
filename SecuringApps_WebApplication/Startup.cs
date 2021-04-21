@@ -32,8 +32,6 @@ namespace SecuringApps_WebApplication
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            //DependencyContainer.RegisterServices(services, Configuration.GetConnectionString("DefaultConnection"));
-            
             services.AddDefaultIdentity<ApplicationUser>(
                 options => {
                     options.SignIn.RequireConfirmedAccount = true;

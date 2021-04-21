@@ -17,7 +17,5 @@ namespace ShoppingCart.Application.Interfaces
         void AddAssignment(AssignmentViewModel model);
 
 
-        void DeleteAssignment(Guid id);
-
     }
 }

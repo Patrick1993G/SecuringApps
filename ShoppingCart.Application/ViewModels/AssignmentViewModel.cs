@@ -23,6 +23,6 @@ namespace ShoppingCart.Application.ViewModels
         public string Deadline { get; set; }
 
         [Required(ErrorMessage = "Please input a Teacher")]
-        public Teacher Teacher { get; set; }
+        public TeacherViewModel Teacher { get; set; }
     }
 }

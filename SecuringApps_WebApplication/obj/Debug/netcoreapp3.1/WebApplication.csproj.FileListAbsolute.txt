@@ -902,3 +902,5 @@ C:\Users\patri\source\repos\SecuringApps\Securing\SecuringApps_WebApplication\ob
 C:\Users\patri\source\repos\SecuringApps\Securing\SecuringApps_WebApplication\obj\Debug\netcoreapp3.1\WebApplication.dll
 C:\Users\patri\source\repos\SecuringApps\Securing\SecuringApps_WebApplication\obj\Debug\netcoreapp3.1\WebApplication.pdb
 C:\Users\patri\source\repos\SecuringApps\Securing\SecuringApps_WebApplication\obj\Debug\netcoreapp3.1\WebApplication.genruntimeconfig.cache
+C:\Users\patri\source\repos\SecuringApps\Securing\SecuringApps_WebApplication\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\StudentRegister.cshtml.g.cs
+C:\Users\patri\source\repos\SecuringApps\Securing\SecuringApps_WebApplication\bin\Debug\netcoreapp3.1\PasswordGenerator.dll

@@ -10,5 +10,6 @@ namespace ShoppingCart.Application.Interfaces
     {
         Guid AddTeacher(TeacherViewModel t);
         IQueryable<TeacherViewModel> GetTeachers();
+        TeacherViewModel getTeacherByEmail(String email);
     }
 }

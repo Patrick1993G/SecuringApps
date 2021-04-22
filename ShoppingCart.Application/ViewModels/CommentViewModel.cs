@@ -16,12 +16,12 @@ namespace ShoppingCart.Application.ViewModels
         [Required(ErrorMessage = "Please input the timeStamp")]
         public DateTime Timestamp { get; set; }
 
-        public Teacher Teacher { get; set; }
+        public TeacherViewModel Teacher { get; set; }
 
-        public Student Student { get; set; }
+        public StudentViewModel Student { get; set; }
 
         [Required(ErrorMessage = "Please input a StudentAssignment")]
-        public StudentAssignment StudentAssignment { get; set; }
+        public StudentAssignmentViewModel StudentAssignment { get; set; }
 
     }
 }

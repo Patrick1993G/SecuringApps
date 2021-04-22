@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "d4BKERbC2ruvyc+2+ho6ggGVeRNtD5OE7Zr7IY9DYjPc9JevClT0BJ+yu/VLppKEoDFx7Wh+63QRLioVmZwjNA==",
+  "dgSpecHash": "XlrzGYwjrZCdYoAqp5rGcVj8y0zfZskmepgTkAS8b1Vn8hEc9rANhXisQQ8GTLsgZ70p2M9LS4MnqpqKLpnlPA==",
   "success": true,
   "projectFilePath": "C:\\Users\\patri\\source\\repos\\SecuringApps\\Securing\\SecuringApps_WebApplication\\WebApplication.csproj",
   "expectedPackageFiles": [
@@ -74,6 +74,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
     "C:\\Users\\patri\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\nuget.frameworks\\4.7.0\\nuget.frameworks.4.7.0.nupkg.sha512",
+    "C:\\Users\\patri\\.nuget\\packages\\passwordgenerator\\2.0.5\\passwordgenerator.2.0.5.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",

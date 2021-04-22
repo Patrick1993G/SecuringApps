@@ -16,10 +16,10 @@ namespace ShoppingCart.Application.ViewModels
         public bool Submitted { get; set; }
 
         [Required(ErrorMessage = "Please input the student")]
-        public Student Student { get; set; }
+        public StudentViewModel Student { get; set; }
 
         [Required(ErrorMessage = "Please input the Assignment")]
-        public Assignment Assignment { get; set; }
+        public AssignmentViewModel Assignment { get; set; }
 
     }
 }

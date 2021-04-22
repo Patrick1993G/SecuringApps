@@ -42,7 +42,7 @@ namespace ShoppingCart.Application.Services
 
         public IQueryable<CommentViewModel> GetCommentsByAssignmentId(Guid id)
         {
-            var comments = GetComments().Where(a => a.StudentAssignment.AssignmentId == id).ProjectTo<CommentViewModel>(_mapper.ConfigurationProvider);
+            var comments = GetComments().Where(a => a.StudentAssignment.Assignment.Id == id).ProjectTo<CommentViewModel>(_mapper.ConfigurationProvider);
             return comments;
         }
     }

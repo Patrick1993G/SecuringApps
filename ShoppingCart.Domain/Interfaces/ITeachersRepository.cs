@@ -11,6 +11,6 @@ namespace ShoppingCart.Domain.Interfaces
         IQueryable<Teacher> GetTeachers();
 
         Guid AddTeacher(Teacher t);
-
+        Teacher GetTeacherByEmail(String email);
     }
 }

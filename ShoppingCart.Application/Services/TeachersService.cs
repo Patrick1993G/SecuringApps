@@ -28,6 +28,11 @@ namespace ShoppingCart.Application.Services
             return teacher.Id;
         }
 
+        public TeacherViewModel getTeacherByEmail(string email)
+        {
+            return _mapper.Map<TeacherViewModel>(_teachersRepo.GetTeacherByEmail(email));
+        }
+
         public IQueryable<TeacherViewModel> GetTeachers()
         {
             var teachers = _teachersRepo.GetTeachers().ProjectTo<TeacherViewModel>(_mapper.ConfigurationProvider);

@@ -32,5 +32,10 @@ namespace ShoppingCart.Application.Services
             var students = _studentsRepo.GetStudents().ProjectTo<StudentViewModel>(_mapper.ConfigurationProvider);
             return students;
         }
+
+        public IQueryable<StudentViewModel> GetStudentsByTeacherId(Guid id)
+        {
+            return _studentsRepo.GetStudentsByTeacher(id).ProjectTo<StudentViewModel>(_mapper.ConfigurationProvider);
+        }
     }
 }

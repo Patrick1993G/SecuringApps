@@ -13,11 +13,15 @@ namespace SecuringApps_WebApplication.Controllers
     public class AssignmentsController : Controller
     {
         private readonly IAssignmentsService _assignmentsService;
+        private readonly IStudentAssignmentsService _studentAssignmentsService;
         private readonly ITeachersService _teachersService;
-        public AssignmentsController(IAssignmentsService assignmentsService, ITeachersService teachersService)
+        private readonly IStudentsService _studentsService;
+        public AssignmentsController(IAssignmentsService assignmentsService, ITeachersService teachersService, IStudentsService studentsService, IStudentAssignmentsService studentAssignmentsService)
         {
             _assignmentsService = assignmentsService;
+            _studentAssignmentsService = studentAssignmentsService;
             _teachersService = teachersService;
+            _studentsService = studentsService;
         }
 
         // GET: AssignmentsController
@@ -30,9 +34,11 @@ namespace SecuringApps_WebApplication.Controllers
         }
 
         // GET: AssignmentsController/Details/5
-        public ActionResult Details(int id)
+        [Authorize(Roles = "Teacher")]
+        public ActionResult Details(Guid id)
         {
-            return View();
+            var assignment = _assignmentsService.GetAssignment(id);
+            return View(assignment);
         }
 
         // GET: AssignmentsController/Create
@@ -52,11 +58,15 @@ namespace SecuringApps_WebApplication.Controllers
             {
                 model.Teacher = _teachersService.getTeacherByEmail(User.Identity.Name);
                 model.Deadline = DateTime.Parse(model.Deadline).ToString("dd/MM/yyyy");
+                var students = _studentsService.GetStudentsByTeacherId(model.Teacher.Id);
                 //adding date validation
                 if (DateTime.Parse(model.Deadline) > DateTime.Now)
                 {
                     model.PublishedDate = DateTime.Today.ToString("dd/MM/yyyy");
-                    _assignmentsService.AddAssignment(model);
+                    Guid assignmentId = _assignmentsService.AddAssignment(model);
+                    AssignmentViewModel assignment = _assignmentsService.GetAssignment(assignmentId);
+                    //add assignment to the teacher's students
+                    AllocateAssignmentsToStudents(students, assignment);
                     TempData["feedback"] = "Assignment was added successfully";
                 }
                 else
@@ -72,6 +82,22 @@ namespace SecuringApps_WebApplication.Controllers
             }
         }
 
-        
+        private void AllocateAssignmentsToStudents(IQueryable<StudentViewModel> students, AssignmentViewModel assignment)
+        {
+            IList<StudentViewModel> studentsList = students.ToList();
+            foreach (var student in studentsList)
+            {
+                StudentAssignmentViewModel studentAssignmentViewModel = new StudentAssignmentViewModel();
+                studentAssignmentViewModel.Assignment = assignment;
+                studentAssignmentViewModel.File = null;
+                studentAssignmentViewModel.Student = student;
+                if (_studentAssignmentsService.AddStudentAssignment(studentAssignmentViewModel) == null)
+                {
+                    TempData["warning"] = "Assignment was not assigned to the student!";
+                }
+
+            }
+        }
+
     }
 }

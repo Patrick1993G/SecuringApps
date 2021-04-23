@@ -9,6 +9,7 @@ namespace ShoppingCart.Application.Interfaces
     public interface IStudentsService
     {
         IQueryable<StudentViewModel> GetStudents();
+        IQueryable<StudentViewModel> GetStudentsByTeacherId(Guid id);
         Guid AddStudent(StudentViewModel s);
     }
 }

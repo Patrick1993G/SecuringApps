@@ -28,5 +28,10 @@ namespace ShoppingCart.Data.Repositories
         {
            return _context.Students;
         }
+
+        public IQueryable<Student> GetStudentsByTeacher(Guid id)
+        {
+            return _context.Students.Where(t => t.TeacherId == id);
+        }
     }
 }

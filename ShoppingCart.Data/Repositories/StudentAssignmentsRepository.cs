@@ -18,6 +18,8 @@ namespace ShoppingCart.Data.Repositories
         }
         public Guid AddStudentAssignment(StudentAssignment s)
         {
+            s.Assignment = null;
+            s.Student = null;
             _context.StudentAssignments.Add(s);
             _context.SaveChanges();
             return s.Id;

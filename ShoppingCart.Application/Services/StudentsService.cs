@@ -37,5 +37,10 @@ namespace ShoppingCart.Application.Services
         {
             return _studentsRepo.GetStudentsByTeacher(id).ProjectTo<StudentViewModel>(_mapper.ConfigurationProvider);
         }
+        public StudentViewModel GetStudentByEmail(string email)
+        {
+            return _mapper.Map<StudentViewModel>(_studentsRepo.GetStudentByEmail(email));
+        }
+
     }
 }

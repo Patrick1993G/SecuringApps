@@ -60,7 +60,7 @@ namespace SecuringApps_WebApplication.Controllers
                 model.Deadline = DateTime.Parse(model.Deadline).ToString("dd/MM/yyyy");
                 var students = _studentsService.GetStudentsByTeacherId(model.Teacher.Id);
                 //adding date validation
-                if (DateTime.Parse(model.Deadline) > DateTime.Now)
+                if (DateTime.Now.Date < DateTime.Parse(model.Deadline).Date)
                 {
                     model.PublishedDate = DateTime.Today.ToString("dd/MM/yyyy");
                     Guid assignmentId = _assignmentsService.AddAssignment(model);

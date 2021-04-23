@@ -1,0 +1,72 @@
+﻿@model IEnumerable<ShoppingCart.Application.ViewModels.StudentAssignmentViewModel>
+
+@{
+    ViewData["Title"] = "GetAllSubmittedAssignments";
+}
+
+<h1>All Submitted Assignments</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Student.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Assignment.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Assignment.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.File)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Submitted)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (item.Submitted)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Assignment.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Assignment.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.File)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Submitted)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Download" asp-route-id="@item.Id">Download</a>
+            </td>
+        </tr>
+            }
+
+        }
+    </tbody>
+</table>

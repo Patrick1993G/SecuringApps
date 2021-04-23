@@ -24,6 +24,11 @@ namespace ShoppingCart.Data.Repositories
             return s.Id;
         }
 
+        public Student GetStudentByEmail(string email)
+        {
+            return _context.Students.SingleOrDefault(x => x.Email == email);
+        }
+
         public IQueryable<Student> GetStudents()
         {
            return _context.Students;

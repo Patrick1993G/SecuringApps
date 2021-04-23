@@ -37,7 +37,7 @@ namespace ShoppingCart.Application.Services
 
         public IQueryable<StudentAssignmentViewModel> GetStudentAssignmentById(Guid id)
         {
-            var assignments = GetStudentAssignments().Where(s => s.Student.Id == id);
+            var assignments = _studentAssignmentsRepo.GetStudentAssignments().Where(s => s.Student.Id == id).ProjectTo<StudentAssignmentViewModel>(_mapper.ConfigurationProvider); ;
             return assignments;
         }
 

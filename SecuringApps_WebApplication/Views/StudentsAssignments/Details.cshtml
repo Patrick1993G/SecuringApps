@@ -1,0 +1,48 @@
+﻿@model ShoppingCart.Application.ViewModels.StudentAssignmentViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Student Assignment Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Assignment.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Assignment.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Assignment.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Assignment.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.File)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.File)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Submitted)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Submitted)
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (!Model.Submitted)
+    {
+        <a asp-action="Submit" asp-route-id="@Model.Id">Submit</a>}
+    @if (Model.Submitted)
+    {
+        <a asp-action="Download" asp-route-id="@Model.Id">Download</a>} |
+    <a asp-action="Index">Back to List</a>
+
+</div>

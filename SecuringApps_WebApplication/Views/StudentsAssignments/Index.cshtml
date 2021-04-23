@@ -1,0 +1,49 @@
+﻿@model IEnumerable<ShoppingCart.Application.ViewModels.StudentAssignmentViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>All Assignments</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Assignment.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Assignment.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.File)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Submitted)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Assignment.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Assignment.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.File)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Submitted)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

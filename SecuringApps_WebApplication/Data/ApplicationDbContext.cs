@@ -14,5 +14,6 @@ namespace SecuringApps_WebApplication.Data
         {
         }
         public DbSet<ShoppingCart.Application.ViewModels.AssignmentViewModel> AssignmentViewModel { get; set; }
+        public DbSet<ShoppingCart.Application.ViewModels.StudentAssignmentViewModel> StudentAssignmentViewModel { get; set; }
     }
 }

@@ -22,18 +22,23 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
                         @if (User.IsInRole("Teacher"))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Assignments" asp-action="Create">Create a new assignment</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Assignments" asp-action="Index">Show assignments</a>
-                            </li>
-                          }
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Assignments" asp-action="Create">Create a new assignment</a>
+                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Assignments" asp-action="Index">Show assignments</a>
+                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link text-dark" asp-area="" asp-controller="StudentsAssignments" asp-action="GetAllSubmittedAssignments">Show submitted assignments</a>
+                                                    </li>}
+                        @if (User.IsInRole("Student"))
+                        {
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="StudentsAssignments" asp-action="Index"></a>
+                    </li>
+}
                     </ul>
                 </div>
             </div>

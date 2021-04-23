@@ -12,7 +12,5 @@ namespace ShoppingCart.Domain.Interfaces
         IQueryable<Assignment> GetAssignments();
         Guid AddAssignment(Assignment a);
 
-       
-        //void DeleteAssignment(Guid id);
     }
 }

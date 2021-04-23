@@ -42,7 +42,7 @@ namespace ShoppingCart.Application.Services
 
         public IQueryable<AssignmentViewModel> GetAssignmentsByTeacherId(Guid id)
         {
-            var assignments = GetAssignments().Where(t => t.Teacher.Id == id).ProjectTo<AssignmentViewModel>(_mapper.ConfigurationProvider);
+            var assignments = _assignmentsRepo.GetAssignments().Where(t => t.Teacher.Id == id).ProjectTo<AssignmentViewModel>(_mapper.ConfigurationProvider);
             return assignments;
         }
     }

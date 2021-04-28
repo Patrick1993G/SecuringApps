@@ -19,6 +19,9 @@ namespace ShoppingCart.Data.Repositories
 
         public Guid AddComment(Comment c)
         {
+            c.Student = null;
+            c.Teacher = null;
+            c.StudentAssignment = null;
             _context.Comments.Add(c);
             _context.SaveChanges();
             return c.Id;

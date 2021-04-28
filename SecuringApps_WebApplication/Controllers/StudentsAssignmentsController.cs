@@ -13,6 +13,7 @@ namespace WebApplication.Controllers
 {
     public class StudentsAssignmentsController : Controller
     {
+        const string SessionKeyName = "_Id";
         private readonly IAssignmentsService _assignmentsService;
         private readonly IStudentAssignmentsService _studentAssignmentsService;
         private readonly ITeachersService _teachersService;
@@ -38,6 +39,7 @@ namespace WebApplication.Controllers
         [Authorize(Roles = "Student,Teacher")]
         public ActionResult Details(Guid id)
         {
+            HttpContext.Session.SetString(SessionKeyName,id.ToString());
             var assignment = _studentAssignmentsService.GetStudentAssignment(id);
             return View(assignment);
         }

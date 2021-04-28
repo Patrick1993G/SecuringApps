@@ -42,7 +42,8 @@
         <a asp-action="Submit" asp-route-id="@Model.Id">Submit</a>}
     @if (Model.Submitted)
     {
+        <a asp-action="Index" asp-controller="Comments" asp-route-id="@Model.Id">See Comments</a>
+        <a asp-action="Create" asp-controller="Comments" >Comment</a>
         <a asp-action="Download" asp-route-id="@Model.Id">Download</a>} |
     <a asp-action="Index">Back to List</a>
-
 </div>

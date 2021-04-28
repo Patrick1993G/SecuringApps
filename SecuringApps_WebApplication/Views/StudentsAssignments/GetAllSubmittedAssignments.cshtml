@@ -36,7 +36,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            if (item.Submitted)
+            if (item.Submitted && item.Student.Teacher.Email == User.Identity.Name)
             {
         <tr>
             <td>

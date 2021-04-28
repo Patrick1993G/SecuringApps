@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ShoppingCart.Application.Interfaces;
+using ShoppingCart.Application.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +11,25 @@ namespace WebApplication.Controllers
 {
     public class CommentsController : Controller
     {
-        // GET: CommentsController
-        public ActionResult Index()
+        const string SessionKeyName = "_Id";
+        private readonly IAssignmentsService _assignmentsService;
+        private readonly IStudentAssignmentsService _studentAssignmentsService;
+        private readonly ITeachersService _teachersService;
+        private readonly IStudentsService _studentsService;
+        private readonly ICommentsService _commentsService;
+        public CommentsController(IAssignmentsService assignmentsService, ITeachersService teachersService,
+            IStudentsService studentsService, IStudentAssignmentsService studentAssignmentsService, ICommentsService commentsService)
         {
-            return View();
+            _assignmentsService = assignmentsService;
+            _studentAssignmentsService = studentAssignmentsService;
+            _teachersService = teachersService;
+            _studentsService = studentsService;
+            _commentsService = commentsService;
         }
-
-        // GET: CommentsController/Details/5
-        public ActionResult Details(int id)
+        // GET: CommentsController
+        public ActionResult Index( Guid id)
         {
-            return View();
+            return View(_commentsService.GetCommentsByAssignmentId(id));
         }
 
         // GET: CommentsController/Create
@@ -30,11 +41,26 @@ namespace WebApplication.Controllers
         // POST: CommentsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(CommentViewModel model)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                model.Timestamp = DateTime.Now;
+                bool isTeacher = User.IsInRole("Teacher");
+
+                if (isTeacher)
+                {
+                    var person = _teachersService.getTeacherByEmail(User.Identity.Name);
+                    model.Teacher = person;
+                }
+                else
+                {
+                    var person = _studentsService.GetStudentByEmail(User.Identity.Name);
+                    model.Student = person;
+                }
+                model.StudentAssignment = _studentAssignmentsService.GetStudentAssignment(new Guid(HttpContext.Session.GetString(SessionKeyName)));
+                _commentsService.AddComment(model);
+                return RedirectToAction("Index",new { id= new Guid(HttpContext.Session.GetString(SessionKeyName))});
             }
             catch
             {
@@ -42,46 +68,5 @@ namespace WebApplication.Controllers
             }
         }
 
-        // GET: CommentsController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: CommentsController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CommentsController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: CommentsController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

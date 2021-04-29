@@ -2720,13 +2720,13 @@
           "ref/netstandard1.3/System.Text.Encoding.Extensions.dll": {}
         }
       },
-      "System.Text.Encodings.Web/4.5.0": {
+      "System.Text.Encodings.Web/5.0.1": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/System.Text.Encodings.Web.dll": {}
+          "lib/netcoreapp3.0/System.Text.Encodings.Web.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/System.Text.Encodings.Web.dll": {}
+          "lib/netcoreapp3.0/System.Text.Encodings.Web.dll": {}
         }
       },
       "System.Text.Json/4.7.2": {
@@ -8777,20 +8777,27 @@
         "system.text.encoding.extensions.nuspec"
       ]
     },
-    "System.Text.Encodings.Web/4.5.0": {
-      "sha512": "Xg4G4Indi4dqP1iuAiMSwpiWS54ZghzR644OtsRCm/m/lBMG8dUBhLVN7hLm8NNrNTR+iGbshCPTwrvxZPlm4g==",
+    "System.Text.Encodings.Web/5.0.1": {
+      "sha512": "KmJ+CJXizDofbq6mpqDoRRLcxgOd2z9X3XoFNULSbvbqVRZkFX3istvr+MUjL6Zw1RT+RNdoI4GYidIINtgvqQ==",
       "type": "package",
-      "path": "system.text.encodings.web/4.5.0",
+      "path": "system.text.encodings.web/5.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.Text.Encodings.Web.dll",
+        "lib/net461/System.Text.Encodings.Web.xml",
+        "lib/netcoreapp3.0/System.Text.Encodings.Web.dll",
+        "lib/netcoreapp3.0/System.Text.Encodings.Web.xml",
         "lib/netstandard1.0/System.Text.Encodings.Web.dll",
         "lib/netstandard1.0/System.Text.Encodings.Web.xml",
         "lib/netstandard2.0/System.Text.Encodings.Web.dll",
         "lib/netstandard2.0/System.Text.Encodings.Web.xml",
-        "system.text.encodings.web.4.5.0.nupkg.sha512",
+        "lib/netstandard2.1/System.Text.Encodings.Web.dll",
+        "lib/netstandard2.1/System.Text.Encodings.Web.xml",
+        "system.text.encodings.web.5.0.1.nupkg.sha512",
         "system.text.encodings.web.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -9416,7 +9423,8 @@
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.5",
       "PasswordGenerator >= 2.0.5",
       "ShoppingCart.Application >= 1.0.0",
-      "ShoppingCart.IOC >= 1.0.0"
+      "ShoppingCart.IOC >= 1.0.0",
+      "System.Text.Encodings.Web >= 5.0.1"
     ]
   },
   "packageFolders": {
@@ -9510,6 +9518,10 @@
           "PasswordGenerator": {
             "target": "Package",
             "version": "[2.0.5, )"
+          },
+          "System.Text.Encodings.Web": {
+            "target": "Package",
+            "version": "[5.0.1, )"
           }
         },
         "imports": [

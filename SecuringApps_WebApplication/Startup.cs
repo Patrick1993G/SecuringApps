@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ShoppingCart.IOC;
+using Microsoft.AspNetCore.Mvc;
 
 namespace SecuringApps_WebApplication
 {
@@ -30,7 +31,8 @@ namespace SecuringApps_WebApplication
         {
             //session 
             services.AddDistributedMemoryCache();
-
+            services.AddMvc(options =>
+             options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(60);
@@ -89,7 +91,6 @@ namespace SecuringApps_WebApplication
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
 
             app.UseAuthentication();
@@ -102,6 +103,7 @@ namespace SecuringApps_WebApplication
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
                 endpoints.MapRazorPages();
             });
         }

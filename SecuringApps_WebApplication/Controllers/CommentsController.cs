@@ -5,6 +5,7 @@ using ShoppingCart.Application.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
@@ -27,9 +28,11 @@ namespace WebApplication.Controllers
             _commentsService = commentsService;
         }
         // GET: CommentsController
-        public ActionResult Index( Guid id)
+        public ActionResult Index( String id)
         {
-            return View(_commentsService.GetCommentsByAssignmentId(id));
+            byte[] encoded = Convert.FromBase64String(id);
+            Guid decId = new Guid(System.Text.Encoding.UTF8.GetString(encoded));
+            return View(_commentsService.GetCommentsByAssignmentId(decId));
         }
 
         // GET: CommentsController/Create
@@ -60,7 +63,9 @@ namespace WebApplication.Controllers
                 }
                 model.StudentAssignment = _studentAssignmentsService.GetStudentAssignment(new Guid(HttpContext.Session.GetString(SessionKeyName)));
                 _commentsService.AddComment(model);
-                return RedirectToAction("Index",new { id= new Guid(HttpContext.Session.GetString(SessionKeyName))});
+
+                var encoded = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(HttpContext.Session.GetString(SessionKeyName)));
+                return RedirectToAction("Index",new { id= encoded});
             }
             catch
             {

@@ -43,7 +43,7 @@
                 @Html.DisplayFor(modelItem => item.Deadline)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                <a asp-action="Details" asp-route-id=@Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(@item.Id.ToString()))>Details</a> 
             </td>
         </tr>
 }

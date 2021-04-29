@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "XlrzGYwjrZCdYoAqp5rGcVj8y0zfZskmepgTkAS8b1Vn8hEc9rANhXisQQ8GTLsgZ70p2M9LS4MnqpqKLpnlPA==",
+  "dgSpecHash": "gpVS4omj/gj0PgGkeza3GTeuyGzo4fePOEVr/tHKp1cNkakcMqq132G0TqIcc2ZKfY1ZJTGNCNbb13Aq9LPV/Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\patri\\source\\repos\\SecuringApps\\Securing\\SecuringApps_WebApplication\\WebApplication.csproj",
   "expectedPackageFiles": [
@@ -173,7 +173,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.text.encoding\\4.3.0\\system.text.encoding.4.3.0.nupkg.sha512",
     "C:\\Users\\patri\\.nuget\\packages\\system.text.encoding.codepages\\4.5.1\\system.text.encoding.codepages.4.5.1.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.text.encoding.extensions\\4.3.0\\system.text.encoding.extensions.4.3.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.text.encodings.web\\4.5.0\\system.text.encodings.web.4.5.0.nupkg.sha512",
+    "C:\\Users\\patri\\.nuget\\packages\\system.text.encodings.web\\5.0.1\\system.text.encodings.web.5.0.1.nupkg.sha512",
     "C:\\Users\\patri\\.nuget\\packages\\system.text.json\\4.7.2\\system.text.json.4.7.2.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.text.regularexpressions\\4.3.0\\system.text.regularexpressions.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.threading\\4.3.0\\system.threading.4.3.0.nupkg.sha512",

@@ -6,6 +6,8 @@ using ShoppingCart.Application.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Text.Encodings;
 using System.Threading.Tasks;
 
 namespace SecuringApps_WebApplication.Controllers
@@ -35,9 +37,11 @@ namespace SecuringApps_WebApplication.Controllers
 
         // GET: AssignmentsController/Details/5
         [Authorize(Roles = "Teacher")]
-        public ActionResult Details(Guid id)
+        public ActionResult Details(String id)
         {
-            var assignment = _assignmentsService.GetAssignment(id);
+            byte[] encoded = Convert.FromBase64String(id);
+            Guid decId = new Guid(Encoding.UTF8.GetString(encoded)); 
+            var assignment = _assignmentsService.GetAssignment(decId);
             return View(assignment);
         }
 

@@ -6,6 +6,7 @@ using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@ namespace WebApplication.Controllers
     public class StudentsAssignmentsController : Controller
     {
         const string SessionKeyName = "_Id";
+        string password = "Pa$$w0rd?MY_";
         private readonly IAssignmentsService _assignmentsService;
         private readonly IStudentAssignmentsService _studentAssignmentsService;
         private readonly ITeachersService _teachersService;
@@ -37,17 +39,22 @@ namespace WebApplication.Controllers
             return View(assignments);
         }
         [Authorize(Roles = "Student,Teacher")]
-        public ActionResult Details(Guid id)
+        public ActionResult Details(String id)
         {
-            HttpContext.Session.SetString(SessionKeyName,id.ToString());
-            var assignment = _studentAssignmentsService.GetStudentAssignment(id);
+            byte[] encoded = Convert.FromBase64String(id);
+            Guid decId = new Guid(System.Text.Encoding.UTF8.GetString(encoded));
+
+            HttpContext.Session.SetString(SessionKeyName, decId.ToString());
+            var assignment = _studentAssignmentsService.GetStudentAssignment(decId);
             return View(assignment);
         }
 
         [Authorize(Roles = "Student,Teacher")]
-        public ActionResult Submit(Guid id)
+        public ActionResult Submit(String id)
         {
-            return View(_studentAssignmentsService.GetStudentAssignment(id));
+            byte[] encoded = Convert.FromBase64String(id);
+            Guid decId = new Guid(System.Text.Encoding.UTF8.GetString(encoded));
+            return View(_studentAssignmentsService.GetStudentAssignment(decId));
         }
         [Authorize(Roles = "Student,Teacher")]
         [HttpPost]
@@ -68,6 +75,7 @@ namespace WebApplication.Controllers
                 }
                 else
                 {
+                    bool isValid = true;
                     if (file != null)
                     {
                         string extension = System.IO.Path.GetExtension(file.FileName);
@@ -79,18 +87,81 @@ namespace WebApplication.Controllers
                         {
                             if (file.Length > 0)
                             {
-                                string newFilename = Guid.NewGuid() + extension;
-                                newFilenameWithAbsolutePath = _environment.ContentRootPath + @"\Assignments\" + newFilename;
-                                using (var stream = System.IO.File.Create(newFilenameWithAbsolutePath))
+                                using (var stream = file.OpenReadStream())
                                 {
-                                    file.CopyTo(stream);
+                                    stream.Position = 0;
+                                    //check if it is a genuine pdf
+                                    int byte1 = stream.ReadByte();
+                                    int byte2 = stream.ReadByte();
+                                   
+                                    if (byte1 == 37 && byte2 == 80)
+                                    {
+                                        //check that it is unique
+                                        //get all the submitted files from the db
+                                        IList<StudentAssignmentViewModel> files = _studentAssignmentsService.GetStudentAssignments().ToList();
+                                        //for every file in files get from local and check
+                                        
+                                        foreach (StudentAssignmentViewModel fileName in files)
+                                        {
+                                            if (fileName.File != null)
+                                            {
+                                                stream.Position = 0;
+                                                var filePath = _environment.ContentRootPath + fileName.File;
+                                                byte[] fileLocalBytes = System.IO.File.ReadAllBytes(filePath);
+                                                int len = fileLocalBytes.Length;
+                                                int counter = 0;
+
+                                                foreach (var b in fileLocalBytes)
+                                                {
+                                                    if (stream.Length >= stream.Position)
+                                                    {
+                                                        if (Byte.Parse(stream.ReadByte().ToString()) == b)
+                                                        {
+                                                            counter++;
+                                                        }
+                                                        else
+                                                        {
+                                                            break;
+                                                        }
+                                                    }
+                                                    if (counter == stream.Length)
+                                                    {
+                                                        isValid = !isValid;
+                                                        TempData["warning"] = "Assignment is already uploaded !";
+                                                        return View(data);
+                                                    }
+                                                }
+                                                isValid = true;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        TempData["warning"] = "Assignment needs to be .pdf !";
+                                        return View();
+                                    }
+                                    stream.Position = 0;
                                 }
-                                data.File = @"\Assignments\" + newFilename;
+                                if (isValid)
+                                {
+                                    string newFilename = Guid.NewGuid() + extension;
+                                    newFilenameWithAbsolutePath = _environment.ContentRootPath + @"\Assignments\" + newFilename;
+                                    using (var stream = System.IO.File.Create(newFilenameWithAbsolutePath))
+                                    {
+                                        file.CopyTo(stream);
+                                    }
+                                    data.File = @"\Assignments\" + newFilename;
+                                }
+                               
                             }
                         }
                     }
-                    _studentAssignmentsService.SubmitAssignment(data.File, data.Id);
-                    TempData["feedback"] = "Assignment was submitted successfully";
+                    if (isValid)
+                    {
+                        _studentAssignmentsService.SubmitAssignment(data.File, data.Id);
+                        TempData["feedback"] = "Assignment was submitted successfully";
+                    }
+                    
                 }
               
             }
@@ -104,9 +175,11 @@ namespace WebApplication.Controllers
             return View(assignment);
         }
         [Authorize(Roles = "Student,Teacher")]
-        public ActionResult Download(Guid id)
+        public ActionResult Download(String id)
         {
-            var assignment = _studentAssignmentsService.GetStudentAssignment(id);
+            byte[] encoded = Convert.FromBase64String(id);
+            Guid decId = new Guid(System.Text.Encoding.UTF8.GetString(encoded));
+            var assignment = _studentAssignmentsService.GetStudentAssignment(decId);
             string path = _environment.ContentRootPath + assignment.File;
 
             string fileName = assignment.Assignment.Title + "/" + assignment.Student.FirstName + " " + assignment.Student.LastName;

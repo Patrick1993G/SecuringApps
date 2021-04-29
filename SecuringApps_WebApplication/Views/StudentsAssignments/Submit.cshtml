@@ -12,7 +12,7 @@
     <div class="col-md-4">
         <form asp-action="Submit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Id" value="@Model.Id"/>
             <div class="form-group">
                 <label asp-for="File" class="control-label"></label>
                 <input name="file" class="form-control" type="file" />
@@ -21,7 +21,7 @@
             @if (!Model.Submitted)
             {
             <div class="form-group">
-                <input type="submit" asp-route-id="id" value="Save" class="btn btn-primary" />
+                <input type="submit" asp-route-id=@Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(@Model.Id.ToString()))  value="Save" class="btn btn-primary" />
             </div>}
         </form>
     </div>

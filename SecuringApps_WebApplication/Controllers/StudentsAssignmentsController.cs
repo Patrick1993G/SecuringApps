@@ -154,6 +154,16 @@ namespace WebApplication.Controllers
                                     string signiture = "";
                                     using (var stream = System.IO.File.Create(newFilenameWithAbsolutePath))
                                     {
+                                        //encrypt file
+                                        //stage 1 
+                                        //encrypt using symetric key 
+                                        MemoryStream fileMs = new MemoryStream();
+                                        file.CopyTo(fileMs);
+                                        Byte[] fileByte = fileMs.ToArray();
+                                        Byte[] stage1 = CryptographicHelpers.SymmetricEncrypt(fileByte);
+                                        //stage 2
+                                        //encrypt using asymetric key
+
                                         file.CopyTo(stream);
                                         stream.Position = 0;
                                         //sign the document 
@@ -172,6 +182,7 @@ namespace WebApplication.Controllers
                                     }
                                     data.Signiture = signiture;
                                     data.File = @"\Assignments\" + newFilename;
+                                    
                                 }
 
                             }

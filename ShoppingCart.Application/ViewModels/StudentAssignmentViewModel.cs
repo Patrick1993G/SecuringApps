@@ -21,5 +21,8 @@ namespace ShoppingCart.Application.ViewModels
         [Required(ErrorMessage = "Please input the Assignment")]
         public AssignmentViewModel Assignment { get; set; }
 
+        public string Signiture { get; set; }
+
+        public string PublicKey { get; set; }
     }
 }

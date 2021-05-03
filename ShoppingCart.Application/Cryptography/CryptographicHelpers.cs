@@ -197,5 +197,36 @@ namespace Cryptography_SWD62B
             byte[] cipher = provider.Decrypt(data, RSAEncryptionPadding.Pkcs1);
             return cipher;
         }
+
+        public static string CreateSigniture(byte[] objectArr, RSA rsa, string privateKey)
+        {
+            byte[] hash;
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                hash = sha256.ComputeHash(objectArr);
+            }
+
+            rsa.FromXmlString(privateKey);
+            RSAPKCS1SignatureFormatter signitureFormatter = new RSAPKCS1SignatureFormatter(rsa);
+            signitureFormatter.SetHashAlgorithm("SHA256");
+            byte[] signedHashValue = signitureFormatter.CreateSignature(hash);
+            return Convert.ToBase64String(signedHashValue);
+        }
+
+        public static bool VerifySigniture(byte[] fileLocalBytes, string signiture, RSA rsa, string publicKey)
+        {
+
+            byte[] hash;
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                hash = sha256.ComputeHash(fileLocalBytes);
+            }
+            rsa.FromXmlString(publicKey);
+            byte[] signature = Convert.FromBase64String(signiture);
+            RSAPKCS1SignatureDeformatter rsaDeformatter = new RSAPKCS1SignatureDeformatter(rsa);
+            rsaDeformatter.SetHashAlgorithm("SHA256");
+            bool isValid = rsaDeformatter.VerifySignature(hash, signature);
+            return isValid;
+        }
     }
 }

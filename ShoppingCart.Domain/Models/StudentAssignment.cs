@@ -25,5 +25,8 @@ namespace ShoppingCart.Domain.Models
         [ForeignKey("Assignment")]
         public Guid AssignmentId { get; set; }
         public virtual Assignment Assignment { get; set; }
+
+        public string Signiture { get; set; }
+        public string PublicKey { get; set; }
     }
 }

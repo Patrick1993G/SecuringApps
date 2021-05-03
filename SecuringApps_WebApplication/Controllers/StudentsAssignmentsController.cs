@@ -8,8 +8,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
-
+using Cryptography_SWD62B;
 namespace WebApplication.Controllers
 {
     public class StudentsAssignmentsController : Controller
@@ -30,7 +32,7 @@ namespace WebApplication.Controllers
             _studentsService = studentsService;
         }
 
-        [Authorize (Roles = "Student,Teacher")]
+        [Authorize(Roles = "Student,Teacher")]
         public ActionResult Index()
         {
             string email = User.Identity.Name;
@@ -56,6 +58,44 @@ namespace WebApplication.Controllers
             Guid decId = new Guid(System.Text.Encoding.UTF8.GetString(encoded));
             return View(_studentAssignmentsService.GetStudentAssignment(decId));
         }
+        private bool checkPdf(Stream stream, String path)
+        {
+            bool isValid = true;
+            IList<StudentAssignmentViewModel> files = _studentAssignmentsService.GetStudentAssignments().Where(f => f.File != path).ToList();
+            foreach (StudentAssignmentViewModel fileName in files)
+            {
+                if (fileName.File != null)
+                {
+                    stream.Position = 0;
+                    var filePath = _environment.ContentRootPath + fileName.File;
+                    byte[] fileLocalBytes = System.IO.File.ReadAllBytes(filePath);
+                    int len = fileLocalBytes.Length;
+                    int counter = 0;
+
+                    foreach (var b in fileLocalBytes)
+                    {
+                        if (stream.Length >= stream.Position)
+                        {
+                            if (Byte.Parse(stream.ReadByte().ToString()) == b)
+                            {
+                                counter++;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        if (counter == stream.Length)
+                        {
+                            isValid = !isValid;
+
+                        }
+                    }
+                }
+            }
+            return isValid;
+        }
+
         [Authorize(Roles = "Student,Teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -69,13 +109,13 @@ namespace WebApplication.Controllers
                 string newFilenameWithAbsolutePath = "";
                 DateTime deadline = DateTime.Parse(studentAssignment.Deadline);
                 DateTime now = DateTime.Now.Date;
-                if ( deadline.Date < now)
+                if (deadline.Date < now)
                 {
                     TempData["warning"] = "Assignment was not submitted Deadline date was exceeded !";
                 }
                 else
                 {
-                    bool isValid = true;
+                    bool isValid = false;
                     if (file != null)
                     {
                         string extension = System.IO.Path.GetExtension(file.FileName);
@@ -93,47 +133,11 @@ namespace WebApplication.Controllers
                                     //check if it is a genuine pdf
                                     int byte1 = stream.ReadByte();
                                     int byte2 = stream.ReadByte();
-                                   
+                                    //check for pdf
                                     if (byte1 == 37 && byte2 == 80)
                                     {
-                                        //check that it is unique
                                         //get all the submitted files from the db
-                                        IList<StudentAssignmentViewModel> files = _studentAssignmentsService.GetStudentAssignments().ToList();
-                                        //for every file in files get from local and check
-                                        
-                                        foreach (StudentAssignmentViewModel fileName in files)
-                                        {
-                                            if (fileName.File != null)
-                                            {
-                                                stream.Position = 0;
-                                                var filePath = _environment.ContentRootPath + fileName.File;
-                                                byte[] fileLocalBytes = System.IO.File.ReadAllBytes(filePath);
-                                                int len = fileLocalBytes.Length;
-                                                int counter = 0;
-
-                                                foreach (var b in fileLocalBytes)
-                                                {
-                                                    if (stream.Length >= stream.Position)
-                                                    {
-                                                        if (Byte.Parse(stream.ReadByte().ToString()) == b)
-                                                        {
-                                                            counter++;
-                                                        }
-                                                        else
-                                                        {
-                                                            break;
-                                                        }
-                                                    }
-                                                    if (counter == stream.Length)
-                                                    {
-                                                        isValid = !isValid;
-                                                        TempData["warning"] = "Assignment is already uploaded !";
-                                                        return View(data);
-                                                    }
-                                                }
-                                                isValid = true;
-                                            }
-                                        }
+                                        isValid = true;
                                     }
                                     else
                                     {
@@ -144,31 +148,46 @@ namespace WebApplication.Controllers
                                 }
                                 if (isValid)
                                 {
+
                                     string newFilename = Guid.NewGuid() + extension;
                                     newFilenameWithAbsolutePath = _environment.ContentRootPath + @"\Assignments\" + newFilename;
+                                    string signiture = "";
                                     using (var stream = System.IO.File.Create(newFilenameWithAbsolutePath))
                                     {
                                         file.CopyTo(stream);
+                                        stream.Position = 0;
+                                        //sign the document 
+                                        RSA rsa = RSA.Create();
+                                        MemoryStream ms = new MemoryStream();
+                                        stream.CopyTo(ms);
+                                        
+                                        Byte[] objectArr = ms.ToArray();
+
+                                        var keyPair = CryptographicHelpers.GenerateAsymmetricKeys();
+                                        var publicKey = keyPair.Item1;
+                                        var privateKey = keyPair.Item2;
+                                        data.PublicKey = publicKey;
+                                        signiture = CryptographicHelpers.CreateSigniture(objectArr, rsa, privateKey);
+                                       
                                     }
+                                    data.Signiture = signiture;
                                     data.File = @"\Assignments\" + newFilename;
                                 }
-                               
+
                             }
                         }
                     }
                     if (isValid)
                     {
-                        _studentAssignmentsService.SubmitAssignment(data.File, data.Id);
+                        _studentAssignmentsService.SubmitAssignment(data.File, data.Signiture,data.PublicKey, data.Id);
                         TempData["feedback"] = "Assignment was submitted successfully";
                     }
-                    
                 }
-              
             }
             catch (Exception e)
             {
                 TempData["warning"] = "Assignment was not submitted !" + e.Message;
-               // _logger.LogError("Error occurred " + e.Message);
+                // _logger.LogError("Error occurred " + e.Message);
                 TempData["error"] = ("Error occured Oooopppsss! We will look into it!");
                 return RedirectToAction("Error", "Home");
             }
@@ -179,18 +198,44 @@ namespace WebApplication.Controllers
         {
             byte[] encoded = Convert.FromBase64String(id);
             Guid decId = new Guid(System.Text.Encoding.UTF8.GetString(encoded));
+            //get assignment by id
             var assignment = _studentAssignmentsService.GetStudentAssignment(decId);
-            string path = _environment.ContentRootPath + assignment.File;
+
+            string path = assignment.File;
 
             string fileName = assignment.Assignment.Title + "/" + assignment.Student.FirstName + " " + assignment.Student.LastName;
 
-            var net = new System.Net.WebClient();
-            var data = net.DownloadData(path);
-            var ctnt = new System.IO.MemoryStream(data);
-            var type = "application/pdf";
-            var file = $"{fileName}.pdf";
 
-            return File(ctnt, type, file);
+            var filePath = _environment.ContentRootPath + path;
+            byte[] fileLocalBytes = System.IO.File.ReadAllBytes(filePath);
+
+            Stream localFile = new System.IO.MemoryStream(fileLocalBytes);
+
+            using (localFile)
+            {
+                RSA rsa = RSA.Create();
+                var keyPair = CryptographicHelpers.GenerateAsymmetricKeys();
+               // var publicKey = keyPair.Item1;
+                var privateKey = keyPair.Item2;
+                var publicKey = assignment.PublicKey;
+                bool isValid = CryptographicHelpers.VerifySigniture(fileLocalBytes, assignment.Signiture, rsa, publicKey);
+                isValid = checkPdf(localFile, path);
+                if (!isValid)
+                {
+                    TempData["warning"] = "Assignment is already uploaded !";
+                }
+                else
+                {
+                    var net = new System.Net.WebClient();
+                    var data = net.DownloadData(filePath);
+                    var ctnt = new System.IO.MemoryStream(data);
+                    var type = "application/pdf";
+                    var file = $"{fileName}.pdf";
+
+                    return File(ctnt, type, file);
+                }
+            }
+            return RedirectToAction("Details", new { id = id.ToString() });
         }
 
         [Authorize(Roles = "Teacher")]

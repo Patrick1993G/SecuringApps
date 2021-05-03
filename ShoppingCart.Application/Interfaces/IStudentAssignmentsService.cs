@@ -13,7 +13,7 @@ namespace ShoppingCart.Application.Interfaces
         StudentAssignmentViewModel GetStudentAssignment(Guid id);
 
         IQueryable<StudentAssignmentViewModel> GetStudentAssignments();
-        bool SubmitAssignment(string filePath, Guid id);
+        bool SubmitAssignment(string filePath,string signiture, string publicKey , Guid id);
         IQueryable<StudentAssignmentViewModel> GetStudentAssignmentById(Guid id);
     }
 }

@@ -24,5 +24,8 @@ namespace ShoppingCart.Application.ViewModels
         public string Signiture { get; set; }
 
         public string PublicKey { get; set; }
+        public string PrivateKey { get; set; }
+        public byte[] Key { get; set; }
+        public byte[] Iv { get; set; }
     }
 }

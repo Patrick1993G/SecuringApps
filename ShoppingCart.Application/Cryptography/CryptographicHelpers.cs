@@ -67,16 +67,7 @@ namespace Cryptography_SWD62B
             return salt;
         }
 
-        public static string SymmetricEncrypt(string plainTextMessage)
-        {
-
-            byte[] messageAsBytes = Encoding.UTF32.GetBytes(plainTextMessage);
-
-            byte[] cipherAsBytes = SymmetricEncrypt(messageAsBytes);
-
-            return Convert.ToBase64String(cipherAsBytes);
-        }
-        public static byte[] SymmetricEncrypt(byte[] plainTextMessage)
+        public static byte[] SymmetricEncrypt(byte[] plainTextMessage, Tuple<byte[], byte[]> _keyIVPair)
         {
             Aes aes = Aes.Create();
             aes.Padding = PaddingMode.PKCS7;
@@ -115,15 +106,7 @@ namespace Cryptography_SWD62B
             }
         }
 
-        public static string SymmetricDecrypt(string cipherText)
-        {
-            byte[] cipherTextAsBytes = Convert.FromBase64String(cipherText);
-
-            byte[] plainTextAsBytes = SymmetricDecrypt(cipherTextAsBytes);
-
-            return Encoding.UTF32.GetString(plainTextAsBytes);
-        }
-        public static byte[] SymmetricDecrypt(byte[] encryptedMessage)
+        public static byte[] SymmetricDecrypt(byte[] encryptedMessage, Tuple<byte[], byte[]> _keyIVPair)
         {
             Aes aes = Aes.Create();
             aes.Padding = PaddingMode.PKCS7;
@@ -153,7 +136,7 @@ namespace Cryptography_SWD62B
             }
         }
         
-        static Tuple<byte[], byte[]> GenerateKeys()
+        public static Tuple<byte[], byte[]> GenerateKeys()
         {
             Aes aes = Aes.Create();
 
@@ -193,7 +176,6 @@ namespace Cryptography_SWD62B
         {
             RSACryptoServiceProvider provider = new RSACryptoServiceProvider();
             provider.FromXmlString(privateKey);
-
             byte[] cipher = provider.Decrypt(data, RSAEncryptionPadding.Pkcs1);
             return cipher;
         }

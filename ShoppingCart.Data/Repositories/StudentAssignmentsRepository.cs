@@ -35,10 +35,13 @@ namespace ShoppingCart.Data.Repositories
             return _context.StudentAssignments;
         }
 
-        public bool SubmitAssignment(string filePath,string signiture,string publicKey, Guid id)
+        public bool SubmitAssignment(string filePath,string signiture,string publicKey, String privateKey, byte[] Key, byte[] Iv, Guid id)
         {
 
             var assignment = GetStudentAssignment(id);
+            assignment.Iv = Iv;
+            assignment.Key = Key;
+            assignment.PrivateKey = privateKey;
             assignment.Signiture = signiture;
             assignment.PublicKey = publicKey;
             assignment.File = filePath;

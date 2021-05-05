@@ -64,15 +64,23 @@ namespace WebApplication.Controllers
             IList<StudentAssignmentViewModel> files = _studentAssignmentsService.GetStudentAssignments().Where(f => f.File != path).ToList();
             foreach (StudentAssignmentViewModel fileName in files)
             {
+                
                 if (fileName.File != null)
                 {
-                    stream.Position = 0;
                     var filePath = _environment.ContentRootPath + fileName.File;
                     byte[] fileLocalBytes = System.IO.File.ReadAllBytes(filePath);
-                    int len = fileLocalBytes.Length;
+                    byte[] decryptedKey = CryptographicHelpers.AsymmetricDecrypt(fileName.Key, fileName.PrivateKey);
+                    byte[] decryptedIv = CryptographicHelpers.AsymmetricDecrypt(fileName.Iv, fileName.PrivateKey);
+                    Tuple<byte[], byte[]> decryptedKeys = new Tuple<byte[], byte[]>(decryptedKey, decryptedIv);
+                    byte[] decryptedFile = CryptographicHelpers.SymmetricDecrypt(fileLocalBytes, decryptedKeys);
+
+                    stream.Position = 0;
+                    
+                   
+                    int len = decryptedFile.Length;
                     int counter = 0;
 
-                    foreach (var b in fileLocalBytes)
+                    foreach (var b in decryptedFile)
                     {
                         if (stream.Length >= stream.Position)
                         {
@@ -151,36 +159,30 @@ namespace WebApplication.Controllers
 
                                     string newFilename = Guid.NewGuid() + extension;
                                     newFilenameWithAbsolutePath = _environment.ContentRootPath + @"\Assignments\" + newFilename;
-                                    string signiture = "";
+                                   
                                     using (var stream = System.IO.File.Create(newFilenameWithAbsolutePath))
                                     {
-                                        //encrypt file
-                                        //stage 1 
-                                        //encrypt using symetric key 
-                                        MemoryStream fileMs = new MemoryStream();
-                                        file.CopyTo(fileMs);
-                                        Byte[] fileByte = fileMs.ToArray();
-                                        Byte[] stage1 = CryptographicHelpers.SymmetricEncrypt(fileByte);
-                                        //stage 2
-                                        //encrypt using asymetric key
-
-                                        file.CopyTo(stream);
-                                        stream.Position = 0;
-                                        //sign the document 
-                                        RSA rsa = RSA.Create();
-                                        MemoryStream ms = new MemoryStream();
-                                        stream.CopyTo(ms);
-                                        
-                                        Byte[] objectArr = ms.ToArray();
-
+                                        //generate keys
                                         var keyPair = CryptographicHelpers.GenerateAsymmetricKeys();
                                         var publicKey = keyPair.Item1;
                                         var privateKey = keyPair.Item2;
                                         data.PublicKey = publicKey;
-                                        signiture = CryptographicHelpers.CreateSigniture(objectArr, rsa, privateKey);
-                                       
+                                        data.PrivateKey = privateKey;
+                                        file.CopyTo(stream);
+                                        stream.Position = 0;
+
+                                        //sign the document 
+                                        string signiture = SignDocument(stream, privateKey);
+
+                                        Tuple<byte[], byte[], byte[]> hybridEncryption = HybridEncrypt(file, publicKey);
+                                        data.Signiture = signiture;
+                                        data.Key = hybridEncryption.Item2;
+                                        data.Iv = hybridEncryption.Item3;
+                                        stream.Position = 0;
+                                        stream.Write(hybridEncryption.Item1);
+                                        stream.Position = 0;
+
                                     }
-                                    data.Signiture = signiture;
                                     data.File = @"\Assignments\" + newFilename;
                                     
                                 }
@@ -190,7 +192,7 @@ namespace WebApplication.Controllers
                     }
                     if (isValid)
                     {
-                        _studentAssignmentsService.SubmitAssignment(data.File, data.Signiture,data.PublicKey, data.Id);
+                        _studentAssignmentsService.SubmitAssignment(data.File, data.Signiture,data.PublicKey, data.PrivateKey, data.Key, data.Iv, data.Id);
                         TempData["feedback"] = "Assignment was submitted successfully";
                     }
                 }
@@ -204,6 +206,42 @@ namespace WebApplication.Controllers
             }
             return View(assignment);
         }
+
+        private static string SignDocument(FileStream stream, string privateKey)
+        {
+            RSA rsa = RSA.Create();
+            MemoryStream ms = new MemoryStream();
+            stream.CopyTo(ms);
+
+            Byte[] objectArr = ms.ToArray();
+
+            string signiture = CryptographicHelpers.CreateSigniture(objectArr, rsa, privateKey);
+            return signiture;
+        }
+
+        private static Tuple<byte[], byte[], byte[]> HybridEncrypt(IFormFile file, string publicKey)
+        {
+            //encrypt file
+            //stage 1 
+            //encrypt using symetric key on file 
+            MemoryStream fileMs = new MemoryStream();
+            file.CopyTo(fileMs);
+            Byte[] fileByte = fileMs.ToArray();
+            //generate the keys
+            Tuple<byte[], byte[]> _keyIVPair = CryptographicHelpers.GenerateKeys();
+            byte[] k = _keyIVPair.Item1;
+            byte[] iv = _keyIVPair.Item2;
+
+            Byte[] encryptedFile = CryptographicHelpers.SymmetricEncrypt(fileByte, _keyIVPair);
+
+            //stage 2
+            //encrypt using asymetric key on signiture and key 
+            byte[] encryptedKey = CryptographicHelpers.AsymetricEncrypt(k, publicKey);
+            byte[] encryptedIv = CryptographicHelpers.AsymetricEncrypt(iv, publicKey);
+
+            return new Tuple<byte[], byte[], byte[]>(encryptedFile, encryptedKey , encryptedIv);
+        }
+
         [Authorize(Roles = "Student,Teacher")]
         public ActionResult Download(String id)
         {
@@ -220,16 +258,22 @@ namespace WebApplication.Controllers
             var filePath = _environment.ContentRootPath + path;
             byte[] fileLocalBytes = System.IO.File.ReadAllBytes(filePath);
 
-            Stream localFile = new System.IO.MemoryStream(fileLocalBytes);
-
+            
+            //decrypt File
+            byte[] decryptedKey = CryptographicHelpers.AsymmetricDecrypt(assignment.Key, assignment.PrivateKey);
+            byte[] decryptedIv = CryptographicHelpers.AsymmetricDecrypt(assignment.Iv, assignment.PrivateKey);
+            
+            Tuple <byte[], byte[]> decryptedKeys = new Tuple<byte[], byte[]>(decryptedKey, decryptedIv);
+            byte[] decryptedFile = CryptographicHelpers.SymmetricDecrypt(fileLocalBytes, decryptedKeys);
+            Stream localFile = new System.IO.MemoryStream(decryptedFile);
+            
             using (localFile)
             {
                 RSA rsa = RSA.Create();
-                var keyPair = CryptographicHelpers.GenerateAsymmetricKeys();
-               // var publicKey = keyPair.Item1;
-                var privateKey = keyPair.Item2;
+                //decrypt Signiture
                 var publicKey = assignment.PublicKey;
-                bool isValid = CryptographicHelpers.VerifySigniture(fileLocalBytes, assignment.Signiture, rsa, publicKey);
+                bool isValid = CryptographicHelpers.VerifySigniture(decryptedFile,assignment.Signiture, rsa, publicKey);
+                
                 isValid = checkPdf(localFile, path);
                 if (!isValid)
                 {
@@ -237,9 +281,7 @@ namespace WebApplication.Controllers
                 }
                 else
                 {
-                    var net = new System.Net.WebClient();
-                    var data = net.DownloadData(filePath);
-                    var ctnt = new System.IO.MemoryStream(data);
+                    var ctnt = new System.IO.MemoryStream(decryptedFile);
                     var type = "application/pdf";
                     var file = $"{fileName}.pdf";
 

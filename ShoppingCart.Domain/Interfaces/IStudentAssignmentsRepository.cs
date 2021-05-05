@@ -12,6 +12,6 @@ namespace ShoppingCart.Domain.Interfaces
         IQueryable<StudentAssignment> GetStudentAssignments();
         Guid AddStudentAssignment(StudentAssignment c);
 
-        bool SubmitAssignment(String filePath,String signiture,String publicKey, Guid id);
+        bool SubmitAssignment(String filePath,String signiture,String publicKey,String privateKey, byte[] Key, byte[] Iv, Guid id);
     }
 }

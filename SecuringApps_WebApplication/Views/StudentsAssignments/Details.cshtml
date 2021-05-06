@@ -1,0 +1,53 @@
+﻿@model ShoppingCart.Application.ViewModels.StudentAssignmentViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Student Assignment Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Assignment.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Assignment.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Assignment.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Assignment.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.File)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.File)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Submitted)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Submitted)
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (!Model.Submitted)
+    {
+       <a asp-action="Submit"  asp-route-id=@Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(@Model.Id.ToString()))>Submit</a>}
+    @if (Model.Submitted)
+    {
+        <a asp-action="Index"  asp-controller="Comments" asp-route-id=@Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(@Model.Id.ToString()))>See Comments</a>
+        <a asp-action="Create" asp-controller="Comments">Comment</a>
+        <a asp-action="Download" id="download" asp-route-id=@Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(@Model.Id.ToString()))>Download</a>} |
+    <a asp-action="Index">Back to List</a>
+</div>
+<script>
+    // when the download is pressed then an alert shows 
+    var _0x2fe1 = ['click', '1zgRhMp', '1KnvKln', 'Downloading\x20assignment...', '467791zLnhat', 'download', '7033oyxcZs', '815062liHhTb', '3wVZAEi', 'addEventListener', 'getElementById', '524187cbXLkJ', '89324wdYHAv', '17031xaCgHo', '358867brkRgA']; var _0x27b48a = _0x4212; (function (_0x581f64, _0x1053d9) { var _0x304db0 = _0x4212; while (!![]) { try { var _0x1f3773 = parseInt(_0x304db0(0x146)) * parseInt(_0x304db0(0x143)) + -parseInt(_0x304db0(0x141)) * -parseInt(_0x304db0(0x145)) + parseInt(_0x304db0(0x142)) + -parseInt(_0x304db0(0x14a)) * parseInt(_0x304db0(0x14c)) + -parseInt(_0x304db0(0x140)) + -parseInt(_0x304db0(0x148)) + parseInt(_0x304db0(0x14b)); if (_0x1f3773 === _0x1053d9) break; else _0x581f64['push'](_0x581f64['shift']()); } catch (_0x5cf455) { _0x581f64['push'](_0x581f64['shift']()); } } }(_0x2fe1, 0x413c7), document[_0x27b48a(0x13f)](_0x27b48a(0x149))[_0x27b48a(0x13e)](_0x27b48a(0x144), showAlert)); function _0x4212(_0xf091be, _0x1bcbf3) { _0xf091be = _0xf091be - 0x13e; var _0x2fe1b5 = _0x2fe1[_0xf091be]; return _0x2fe1b5; } function showAlert() { var _0x2270fc = _0x27b48a; alert(_0x2270fc(0x147)); }
+</script>

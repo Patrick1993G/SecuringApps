@@ -1,0 +1,4 @@
+2021-05-06T19:00:46.5747176+02:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2021-05-06T19:00:46.5933105+02:00  [INF] Hosting environment: "Development" (c3307c92)
+2021-05-06T19:00:46.5951812+02:00  [INF] Content root path: "C:\Users\patri\source\repos\SecuringApps\Securing\SecuringApps_WebApplication" (b5d60022)
+2021-05-06T19:01:01.6174730+02:00 80000036-0007-fb00-b63f-84710c7967bb [INF] This User patrick.grech21@gmail.com tried to submit after the deadline was exceeded! at date 06/05/2021 19:01:01 (707d7890)

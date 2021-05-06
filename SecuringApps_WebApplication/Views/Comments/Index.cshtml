@@ -1,0 +1,73 @@
+﻿@model IEnumerable<ShoppingCart.Application.ViewModels.CommentViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New Comment</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Timestamp)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            @if (item.Teacher != null)
+            {
+                <td>
+                    Mr @Html.DisplayFor(modelItem => item.Teacher.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Teacher.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Teacher.Email)
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.Email)
+                </td>
+            }
+
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Timestamp)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

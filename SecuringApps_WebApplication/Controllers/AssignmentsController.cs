@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.ViewModels;
 using System;
@@ -18,12 +19,14 @@ namespace SecuringApps_WebApplication.Controllers
         private readonly IStudentAssignmentsService _studentAssignmentsService;
         private readonly ITeachersService _teachersService;
         private readonly IStudentsService _studentsService;
-        public AssignmentsController(IAssignmentsService assignmentsService, ITeachersService teachersService, IStudentsService studentsService, IStudentAssignmentsService studentAssignmentsService)
+        private readonly ILogger<AssignmentsController> _logger;
+        public AssignmentsController(ILogger<AssignmentsController> logger, IAssignmentsService assignmentsService, ITeachersService teachersService, IStudentsService studentsService, IStudentAssignmentsService studentAssignmentsService)
         {
             _assignmentsService = assignmentsService;
             _studentAssignmentsService = studentAssignmentsService;
             _teachersService = teachersService;
             _studentsService = studentsService;
+            _logger = logger;
         }
 
         // GET: AssignmentsController
@@ -32,6 +35,7 @@ namespace SecuringApps_WebApplication.Controllers
         {
             var teacher = _teachersService.getTeacherByEmail(User.Identity.Name);
             var assignments = _assignmentsService.GetAssignmentsByTeacherId(teacher.Id);
+            _logger.LogInformation($"User {User.Identity.Name} viewed Teacher {teacher.Email} assignments! at date {DateTime.Now} with ip address {HttpContext.Connection.RemoteIpAddress}");
             return View(assignments);
         }
 
@@ -42,6 +46,7 @@ namespace SecuringApps_WebApplication.Controllers
             byte[] encoded = Convert.FromBase64String(id);
             Guid decId = new Guid(Encoding.UTF8.GetString(encoded)); 
             var assignment = _assignmentsService.GetAssignment(decId);
+            _logger.LogInformation($"User {User.Identity.Name} viewed details for assignment id= {assignment.Id}! at date {DateTime.Now} with ip address {HttpContext.Connection.RemoteIpAddress}");
             return View(assignment);
         }
 
@@ -72,17 +77,20 @@ namespace SecuringApps_WebApplication.Controllers
                     //add assignment to the teacher's students
                     AllocateAssignmentsToStudents(students, assignment);
                     TempData["feedback"] = "Assignment was added successfully";
+                    _logger.LogInformation($"User {User.Identity.Name} added assignment id= {assignment.Id}! at date {DateTime.Now} with ip address {HttpContext.Connection.RemoteIpAddress}");
                 }
                 else
                 {
                     TempData["warning"] = "Deadline needs to be after Published Date !";
+                    _logger.LogInformation($"User {User.Identity.Name} attempted to add assignment! at date {DateTime.Now} with ip address {HttpContext.Connection.RemoteIpAddress}");
                 }
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception e)
             {
-                TempData["warning"] = "Assignment was not added !" + e.Message;
-                return View();
+                TempData["error"] = ("Error occured Oooopppsss! We will look into it!");
+                _logger.LogError($"User {User.Identity.Name} attempted to add assignment!! at date {DateTime.Now} with ip address {HttpContext.Connection.RemoteIpAddress} encountered error = {e.Message}");
+                return RedirectToAction("Error", "Home");
             }
         }
 
@@ -98,8 +106,12 @@ namespace SecuringApps_WebApplication.Controllers
                 if (_studentAssignmentsService.AddStudentAssignment(studentAssignmentViewModel) == null)
                 {
                     TempData["warning"] = "Assignment was not assigned to the student!";
+                    _logger.LogInformation($"User {User.Identity.Name} attempted to assign assignment to student {student.Id}! at date {DateTime.Now} with ip address {HttpContext.Connection.RemoteIpAddress}");
                 }
-
+                else
+                {
+                    _logger.LogInformation($"User {User.Identity.Name} assigned assignment to student {student.Id} successfully! at date {DateTime.Now} with ip address {HttpContext.Connection.RemoteIpAddress}");
+                }
             }
         }
 

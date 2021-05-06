@@ -9,29 +9,29 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
 using Cryptography_SWD62B;
 using WebApplication.ActionFilters;
+using Microsoft.Extensions.Logging;
 
 namespace WebApplication.Controllers
 {
     public class StudentsAssignmentsController : Controller
     {
         const string SessionKeyName = "_Id";
-        string password = "Pa$$w0rd?MY_";
         private readonly IAssignmentsService _assignmentsService;
         private readonly IStudentAssignmentsService _studentAssignmentsService;
         private readonly ITeachersService _teachersService;
         private readonly IStudentsService _studentsService;
         private IWebHostEnvironment _environment;
-        public StudentsAssignmentsController(IAssignmentsService assignmentsService, ITeachersService teachersService, IStudentsService studentsService, IStudentAssignmentsService studentAssignmentsService, IWebHostEnvironment environment)
+        private readonly ILogger<StudentsAssignmentsController> _logger;
+        public StudentsAssignmentsController(ILogger<StudentsAssignmentsController> logger, IAssignmentsService assignmentsService, ITeachersService teachersService, IStudentsService studentsService, IStudentAssignmentsService studentAssignmentsService, IWebHostEnvironment environment)
         {
             _assignmentsService = assignmentsService;
             _studentAssignmentsService = studentAssignmentsService;
             _teachersService = teachersService;
             _environment = environment;
             _studentsService = studentsService;
+            _logger = logger;
         }
 
         [Authorize(Roles = "Student,Teacher")]
@@ -40,6 +40,7 @@ namespace WebApplication.Controllers
             string email = User.Identity.Name;
             var student = _studentsService.GetStudentByEmail(email);
             var assignments = _studentAssignmentsService.GetStudentAssignmentById(student.Id);
+            _logger.LogInformation($"User {User.Identity.Name} viewed Student {student.Email} assignment! at date {DateTime.Now} with ip address {HttpContext.Connection.RemoteIpAddress}");
             return View(assignments);
         }
         [Authorize(Roles = "Student,Teacher")]
@@ -48,9 +49,10 @@ namespace WebApplication.Controllers
         {
             byte[] encoded = Convert.FromBase64String(id);
             Guid decId = new Guid(System.Text.Encoding.UTF8.GetString(encoded));
-
             HttpContext.Session.SetString(SessionKeyName, decId.ToString());
             var assignment = _studentAssignmentsService.GetStudentAssignment(decId);
+            _logger.LogInformation($"This User {User.Identity.Name} viewed Student assignment! at date {DateTime.Now} with ip address {HttpContext.Connection.RemoteIpAddress}");
+
             return View(assignment);
         }
 
@@ -123,6 +125,7 @@ namespace WebApplication.Controllers
                 if (deadline.Date < now)
                 {
                     TempData["warning"] = "Assignment was not submitted Deadline date was exceeded !";
+                    _logger.LogInformation($"This User {User.Identity.Name} tried to submit after the deadline was exceeded! at date {DateTime.Now} with ip address {HttpContext.Connection.RemoteIpAddress}");
                 }
                 else
                 {
@@ -187,9 +190,7 @@ namespace WebApplication.Controllers
 
                                     }
                                     data.File = @"\Assignments\" + newFilename;
-                                    
                                 }
-
                             }
                         }
                     }
@@ -203,7 +204,8 @@ namespace WebApplication.Controllers
             catch (Exception e)
             {
                 TempData["warning"] = "Assignment was not submitted !" + e.Message;
-                // _logger.LogError("Error occurred " + e.Message);
+                _logger.LogError($"Error occurred while trying to submit assignment User {User.Identity.Name} tried to submit assignment at {DateTime.Now} with ip address {HttpContext.Connection.RemoteIpAddress} error message = {e.Message}");
+
                 TempData["error"] = ("Error occured Oooopppsss! We will look into it!");
                 return RedirectToAction("Error", "Home");
             }
@@ -282,14 +284,16 @@ namespace WebApplication.Controllers
                 if (!isValid)
                 {
                     TempData["warning"] = "Assignment is already uploaded !";
+                    _logger.LogInformation($" User {User.Identity.Name} tried to download an already uploaded assignment! at {DateTime.Now} with ip address {HttpContext.Connection.RemoteIpAddress}");
                 }
                 else
                 {
                     var ctnt = new System.IO.MemoryStream(decryptedFile);
                     var type = "application/pdf";
                     var file = $"{fileName}.pdf";
-
-                    return File(ctnt, type, file);
+                    var fileDownloaded = File(ctnt, type, file);
+                    _logger.LogInformation($" User {User.Identity.Name} downloaded sucessfully the assignment! at {DateTime.Now} with ip address {HttpContext.Connection.RemoteIpAddress}");
+                    return fileDownloaded;
                 }
             }
             return RedirectToAction("Details", new { id = id.ToString() });
@@ -298,6 +302,7 @@ namespace WebApplication.Controllers
         [Authorize(Roles = "Teacher")]
         public ActionResult GetAllSubmittedAssignments()
         {
+            _logger.LogInformation($" User {User.Identity.Name} viewed the submitted assignments! at {DateTime.Now} with ip address {HttpContext.Connection.RemoteIpAddress}");
             return View(_studentAssignmentsService.GetStudentAssignments());
         }
     }

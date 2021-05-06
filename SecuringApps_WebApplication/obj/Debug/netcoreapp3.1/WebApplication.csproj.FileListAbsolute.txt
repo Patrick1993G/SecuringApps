@@ -914,3 +914,10 @@ C:\Users\patri\source\repos\SecuringApps\Securing\SecuringApps_WebApplication\ob
 C:\Users\patri\source\repos\SecuringApps\Securing\SecuringApps_WebApplication\obj\Debug\netcoreapp3.1\Razor\Views\Comments\Create.cshtml.g.cs
 C:\Users\patri\source\repos\SecuringApps\Securing\SecuringApps_WebApplication\obj\Debug\netcoreapp3.1\Razor\Views\Comments\Index.cshtml.g.cs
 C:\Users\patri\source\repos\SecuringApps\Securing\SecuringApps_WebApplication\bin\Debug\netcoreapp3.1\System.Text.Encodings.Web.dll
+C:\Users\patri\source\repos\SecuringApps\Securing\SecuringApps_WebApplication\bin\Debug\netcoreapp3.1\Serilog.dll
+C:\Users\patri\source\repos\SecuringApps\Securing\SecuringApps_WebApplication\bin\Debug\netcoreapp3.1\Serilog.Extensions.Logging.dll
+C:\Users\patri\source\repos\SecuringApps\Securing\SecuringApps_WebApplication\bin\Debug\netcoreapp3.1\Serilog.Extensions.Logging.File.dll
+C:\Users\patri\source\repos\SecuringApps\Securing\SecuringApps_WebApplication\bin\Debug\netcoreapp3.1\Serilog.Formatting.Compact.dll
+C:\Users\patri\source\repos\SecuringApps\Securing\SecuringApps_WebApplication\bin\Debug\netcoreapp3.1\Serilog.Sinks.Async.dll
+C:\Users\patri\source\repos\SecuringApps\Securing\SecuringApps_WebApplication\bin\Debug\netcoreapp3.1\Serilog.Sinks.File.dll
+C:\Users\patri\source\repos\SecuringApps\Securing\SecuringApps_WebApplication\bin\Debug\netcoreapp3.1\Serilog.Sinks.RollingFile.dll

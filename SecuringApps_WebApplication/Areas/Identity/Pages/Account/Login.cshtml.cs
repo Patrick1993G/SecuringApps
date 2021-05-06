@@ -83,21 +83,22 @@ namespace SecuringApps_WebApplication.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User logged in.");
+                    _logger.LogInformation($"User {User.Identity.Name} logged in. with ip address {HttpContext.Connection.RemoteIpAddress}");
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
                 {
+                    _logger.LogInformation($"User {User.Identity.Name} logging with 2FA. with ip address {HttpContext.Connection.RemoteIpAddress}");
                     return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
                 }
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("User account locked out.");
+                    _logger.LogWarning($"User {User.Identity.Name} account locked out. with ip address {HttpContext.Connection.RemoteIpAddress} at {DateTime.Now}");
                     return RedirectToPage("./Lockout");
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, $"Invalid login attempt. User {User.Identity.Name} with ip address {HttpContext.Connection.RemoteIpAddress} at {DateTime.Now}");
                     return Page();
                 }
             }

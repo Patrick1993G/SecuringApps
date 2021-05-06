@@ -1,25 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using PasswordGenerator;
 using SecuringApps_WebApplication.Data;
 using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.ViewModels;
-using ShoppingCart.Domain.Models;
 
 namespace SecuringApps_WebApplication.Areas.Identity.Pages.Account
 {
@@ -138,10 +130,12 @@ namespace SecuringApps_WebApplication.Areas.Identity.Pages.Account
                     string message = "Your email = "+ Input.Email + " and password= "+Input.Password;
                     SendEmail("smtp.live.com", 587, student.Email, "Student account details", message);
 
+                    _logger.LogInformation($"User {User.Identity.Name} with ip address { HttpContext.Connection.RemoteIpAddress}" +
+                        $"Created Student account for {Input.Email} at {DateTime.Now}");
+        
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
-                    
-                    
+                   
                 }
                 foreach (var error in result.Errors)
                 {
@@ -149,7 +143,6 @@ namespace SecuringApps_WebApplication.Areas.Identity.Pages.Account
                 }
             }
 
-            // If we got this far, something failed, redisplay form
             return Page();
         }
     }

@@ -1,12 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 using WebApplication.ActionFilters;
 
 namespace WebApplication.Controllers
@@ -19,7 +16,8 @@ namespace WebApplication.Controllers
         private readonly ITeachersService _teachersService;
         private readonly IStudentsService _studentsService;
         private readonly ICommentsService _commentsService;
-        public CommentsController(IAssignmentsService assignmentsService, ITeachersService teachersService,
+        private readonly ILogger<CommentsController> _logger;
+        public CommentsController(ILogger<CommentsController> logger,IAssignmentsService assignmentsService, ITeachersService teachersService,
             IStudentsService studentsService, IStudentAssignmentsService studentAssignmentsService, ICommentsService commentsService)
         {
             _assignmentsService = assignmentsService;
@@ -27,6 +25,7 @@ namespace WebApplication.Controllers
             _teachersService = teachersService;
             _studentsService = studentsService;
             _commentsService = commentsService;
+            _logger = logger;
         }
         // GET: CommentsController
         [ActionFilter]
@@ -34,6 +33,7 @@ namespace WebApplication.Controllers
         {
             byte[] encoded = Convert.FromBase64String(id);
             Guid decId = new Guid(System.Text.Encoding.UTF8.GetString(encoded));
+            _logger.LogInformation($"User {User.Identity.Name} viewed comment for assignment id= {decId}! at date {DateTime.Now} with ip address {HttpContext.Connection.RemoteIpAddress}");
             return View(_commentsService.GetCommentsByAssignmentId(decId));
         }
 
@@ -65,13 +65,15 @@ namespace WebApplication.Controllers
                 }
                 model.StudentAssignment = _studentAssignmentsService.GetStudentAssignment(new Guid(HttpContext.Session.GetString(SessionKeyName)));
                 _commentsService.AddComment(model);
-
+                _logger.LogInformation($"User {User.Identity.Name} created a comment for assignment {model.StudentAssignment.Id}! at date {DateTime.Now} with ip address {HttpContext.Connection.RemoteIpAddress}");
                 var encoded = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(HttpContext.Session.GetString(SessionKeyName)));
                 return RedirectToAction("Index",new { id= encoded});
             }
             catch
             {
-                return View();
+                TempData["error"] = ("Error occured Oooopppsss! We will look into it!");
+                _logger.LogError($"User {User.Identity.Name} tried to create a comment on assignment {model.StudentAssignment.Id}! at date {DateTime.Now} with ip address {HttpContext.Connection.RemoteIpAddress}");
+                return RedirectToAction("Error", "Home");
             }
         }
 

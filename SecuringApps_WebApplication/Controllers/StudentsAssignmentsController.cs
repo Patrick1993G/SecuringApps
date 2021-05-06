@@ -12,6 +12,8 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Cryptography_SWD62B;
+using WebApplication.ActionFilters;
+
 namespace WebApplication.Controllers
 {
     public class StudentsAssignmentsController : Controller
@@ -41,6 +43,7 @@ namespace WebApplication.Controllers
             return View(assignments);
         }
         [Authorize(Roles = "Student,Teacher")]
+        [ActionFilter]
         public ActionResult Details(String id)
         {
             byte[] encoded = Convert.FromBase64String(id);
@@ -243,6 +246,7 @@ namespace WebApplication.Controllers
         }
 
         [Authorize(Roles = "Student,Teacher")]
+        [ActionFilter]
         public ActionResult Download(String id)
         {
             byte[] encoded = Convert.FromBase64String(id);

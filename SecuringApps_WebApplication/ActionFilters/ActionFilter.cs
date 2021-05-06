@@ -1,57 +1,47 @@
 ﻿
-//using Castle.Core.Logging;
-//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.AspNetCore.Mvc.Filters;
-//using System;
-//using System.Diagnostics;
+using Castle.Core.Logging;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using ShoppingCart.Application.Interfaces;
+using System;
+using System.Diagnostics;
 
-//namespace WebApplication.ActionFilters
-//{
-//    public class ActionFilter : ActionFilterAttribute
-//    {
-//        private readonly ILogger _logger;
+namespace WebApplication.ActionFilters
+{
+    public class ActionFilter : ActionFilterAttribute
+    {
+        
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            try
+            {
+                ValidateStudentView(context);
+            }
+            catch (Exception example)
+            {
+                context.Result = new BadRequestObjectResult("Bad Request = "+example.Message);
+            }
+        }
 
-//        public ActionFilter(ILoggerFactory loggerFactory)
-//        {
-//            _logger = loggerFactory.Create("ValidatePayloadTypeFilter");
-//        }
+        private static void ValidateStudentView(ActionExecutingContext ctxt)
+        {
+            byte[] encodedId = Convert.FromBase64String(ctxt.ActionArguments["id"].ToString());
+            var decodedId = new Guid(System.Text.Encoding.UTF8.GetString(encodedId));
 
-//        public override void OnActionExecuting(ActionExecutingContext context)
-//        {
-//            var commandDto = context.ActionArguments["commandDto"] as CommandDto;
-//            if (commandDto == null)
-//            {
-//                context.HttpContext.Response.StatusCode = 400;
-//                context.Result = new ContentResult()
-//                {
-//                    Content = "The body is not a CommandDto type"
-//                };
-//                return;
-//            }
+            var currentLoggedUser = ctxt.HttpContext.User.Identity.Name;
 
-//            _logger.LogDebug("validating CommandType");
-//            if (!CommandTypes.AllowedTypes.Contains(commandDto.CommandType))
-//            {
-//                context.HttpContext.Response.StatusCode = 400;
-//                context.Result = new ContentResult()
-//                {
-//                    Content = "CommandTypes not allowed"
-//                };
-//                return;
-//            }
+            IStudentAssignmentsService studentsService = (IStudentAssignmentsService)ctxt.HttpContext.RequestServices.GetService(typeof(IStudentAssignmentsService));
+            var studentAssignment = studentsService.GetStudentAssignment(decodedId);
 
-//            _logger.LogDebug("validating PayloadType");
-//            if (!PayloadTypes.AllowedTypes.Contains(commandDto.PayloadType))
-//            {
-//                context.HttpContext.Response.StatusCode = 400;
-//                context.Result = new ContentResult()
-//                {
-//                    Content = "PayloadType not allowed"
-//                };
-//                return;
-//            }
+            if (studentAssignment.Student.Email == currentLoggedUser || studentAssignment.Student.Teacher.Email == currentLoggedUser)
+            {
+                //log to file
+            }
+            else
+            {  // Log to file
+                ctxt.Result = new UnauthorizedObjectResult("Access Denied");
+            }
 
-//            base.OnActionExecuting(context);
-//        }
-//    }
-//}
+        }
+    }
+}

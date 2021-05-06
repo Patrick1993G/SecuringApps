@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using WebApplication.ActionFilters;
 
 namespace WebApplication.Controllers
 {
@@ -28,6 +29,7 @@ namespace WebApplication.Controllers
             _commentsService = commentsService;
         }
         // GET: CommentsController
+        [ActionFilter]
         public ActionResult Index( String id)
         {
             byte[] encoded = Convert.FromBase64String(id);

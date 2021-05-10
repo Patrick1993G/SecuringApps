@@ -27,7 +27,7 @@ using SecuringApps_WebApplication.Models;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"a7f4d6c2b419dca7b0205256cf627d1999662a8b", @"/Views/Assignments/Create.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"5bf0f7a85bb1f1c43d29e2c4b4b3fd7ee786227d", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"b2d7442916499c77e569ca15c648879796d5a595", @"/Views/_ViewImports.cshtml")]
     public class Views_Assignments_Create : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<ShoppingCart.Application.ViewModels.AssignmentViewModel>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("text-danger"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);

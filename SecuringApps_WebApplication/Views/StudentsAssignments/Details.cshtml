@@ -44,8 +44,7 @@
     {
         <a asp-action="Index"  asp-controller="Comments" asp-route-id=@Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(@Model.Id.ToString()))>See Comments</a>
         <a asp-action="Create" asp-controller="Comments">Comment</a>
-        <a asp-action="Download" id="download" asp-route-id=@Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(@Model.Id.ToString()))>Download</a>} |
-    <a asp-action="Index">Back to List</a>
+        <a asp-action="Download" id="download" asp-route-id=@Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(@Model.Id.ToString()))>Download</a>} 
 </div>
 <script>
     // when the download is pressed then an alert shows 

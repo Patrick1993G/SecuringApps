@@ -48,33 +48,43 @@ namespace WebApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CommentViewModel model)
         {
-            try
+            if (User.Identity.Name != null)
             {
-                model.Timestamp = DateTime.Now;
-                bool isTeacher = User.IsInRole("Teacher");
+                try
+                {
+                    model.Timestamp = DateTime.Now;
+                    bool isTeacher = User.IsInRole("Teacher");
 
-                if (isTeacher)
-                {
-                    var person = _teachersService.getTeacherByEmail(User.Identity.Name);
-                    model.Teacher = person;
+                    if (isTeacher)
+                    {
+                        var person = _teachersService.getTeacherByEmail(User.Identity.Name);
+                        model.Teacher = person;
+                    }
+                    else
+                    {
+                        var person = _studentsService.GetStudentByEmail(User.Identity.Name);
+                        model.Student = person;
+                    }
+                    model.StudentAssignment = _studentAssignmentsService.GetStudentAssignment(new Guid(HttpContext.Session.GetString(SessionKeyName)));
+                    _commentsService.AddComment(model);
+                    _logger.LogInformation($"User {User.Identity.Name} created a comment for assignment {model.StudentAssignment.Id}! at date {DateTime.Now} with ip address {HttpContext.Connection.RemoteIpAddress}");
+                    var encoded = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(HttpContext.Session.GetString(SessionKeyName)));
+                    return RedirectToAction("Index", new { id = encoded });
                 }
-                else
+                catch
                 {
-                    var person = _studentsService.GetStudentByEmail(User.Identity.Name);
-                    model.Student = person;
+                    TempData["error"] = ("Error occured Oooopppsss! We will look into it!");
+                    _logger.LogError($"User {User.Identity.Name} tried to create a comment on assignment {model.StudentAssignment.Id}! at date {DateTime.Now} with ip address {HttpContext.Connection.RemoteIpAddress}");
+                    return RedirectToAction("Error", "Home");
                 }
-                model.StudentAssignment = _studentAssignmentsService.GetStudentAssignment(new Guid(HttpContext.Session.GetString(SessionKeyName)));
-                _commentsService.AddComment(model);
-                _logger.LogInformation($"User {User.Identity.Name} created a comment for assignment {model.StudentAssignment.Id}! at date {DateTime.Now} with ip address {HttpContext.Connection.RemoteIpAddress}");
-                var encoded = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(HttpContext.Session.GetString(SessionKeyName)));
-                return RedirectToAction("Index",new { id= encoded});
             }
-            catch
+            else
             {
                 TempData["error"] = ("Error occured Oooopppsss! We will look into it!");
-                _logger.LogError($"User {User.Identity.Name} tried to create a comment on assignment {model.StudentAssignment.Id}! at date {DateTime.Now} with ip address {HttpContext.Connection.RemoteIpAddress}");
+                _logger.LogError($"User Anon tried to create a comment on assignment! at date {DateTime.Now} with ip address {HttpContext.Connection.RemoteIpAddress}");
                 return RedirectToAction("Error", "Home");
             }
+            
         }
 
     }

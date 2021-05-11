@@ -59,8 +59,13 @@ namespace WebApplication.Controllers
         [Authorize(Roles = "Student,Teacher")]
         public ActionResult Submit(String id)
         {
-            byte[] encoded = Convert.FromBase64String(id);
-            Guid decId = new Guid(System.Text.Encoding.UTF8.GetString(encoded));
+            Guid decId =new Guid();
+            if (id != null)
+            {
+                byte[] encoded = Convert.FromBase64String(id);
+                decId = new Guid(System.Text.Encoding.UTF8.GetString(encoded));
+              
+            }
             return View(_studentAssignmentsService.GetStudentAssignment(decId));
         }
         private bool checkPdf(Stream stream, String path)

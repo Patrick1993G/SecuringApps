@@ -2,9 +2,7 @@
 using ShoppingCart.Domain.Interfaces;
 using ShoppingCart.Domain.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace ShoppingCart.Data.Repositories
 {
@@ -16,13 +14,13 @@ namespace ShoppingCart.Data.Repositories
             _context = context;
 
         }
-        public Guid AddStudentAssignment(StudentAssignment s)
+        public Guid AddStudentAssignment(StudentAssignment studentAssignment)
         {
-            s.Assignment = null;
-            s.Student = null;
-            _context.StudentAssignments.Add(s);
+            studentAssignment.Assignment = null;
+            studentAssignment.Student = null;
+            _context.StudentAssignments.Add(studentAssignment);
             _context.SaveChanges();
-            return s.Id;
+            return studentAssignment.Id;
         }
 
         public StudentAssignment GetStudentAssignment(Guid id)

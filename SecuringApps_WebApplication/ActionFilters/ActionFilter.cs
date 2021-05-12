@@ -1,10 +1,8 @@
 ﻿
-using Castle.Core.Logging;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using ShoppingCart.Application.Interfaces;
 using System;
-using System.Diagnostics;
 
 namespace WebApplication.ActionFilters
 {

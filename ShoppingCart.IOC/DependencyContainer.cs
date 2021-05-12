@@ -7,9 +7,6 @@ using ShoppingCart.Application.Services;
 using ShoppingCart.Data.Context;
 using ShoppingCart.Data.Repositories;
 using ShoppingCart.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ShoppingCart.IOC
 {

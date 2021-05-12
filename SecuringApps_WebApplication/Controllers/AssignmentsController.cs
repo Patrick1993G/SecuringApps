@@ -8,8 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.Encodings;
-using System.Threading.Tasks;
 
 namespace SecuringApps_WebApplication.Controllers
 {

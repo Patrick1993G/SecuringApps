@@ -21,9 +21,9 @@ namespace ShoppingCart.Application.Services
             _studentAssignmentsRepo = studentAssignmentsRepository;
         }
 
-        public Guid AddStudentAssignment(StudentAssignmentViewModel s)
+        public Guid AddStudentAssignment(StudentAssignmentViewModel studentAssignmentViewModel)
         {
-            var studentAssignment = _mapper.Map<StudentAssignment>(s);
+            var studentAssignment = _mapper.Map<StudentAssignment>(studentAssignmentViewModel);
             _studentAssignmentsRepo.AddStudentAssignment(studentAssignment);
             return studentAssignment.Id;
         }

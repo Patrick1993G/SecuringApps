@@ -20,9 +20,9 @@ namespace ShoppingCart.Application.Services
             _mapper = mapper;
             _studentsRepo = studentsRepository;
         }
-        public Guid AddStudent(StudentViewModel s)
+        public Guid AddStudent(StudentViewModel studentViewModel)
         {
-            var student = _mapper.Map<Student>(s);
+            var student = _mapper.Map<Student>(studentViewModel);
             _studentsRepo.AddStudent(student);
             return student.Id;
         }

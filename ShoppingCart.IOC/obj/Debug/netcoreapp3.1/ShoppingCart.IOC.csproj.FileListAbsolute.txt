@@ -36,3 +36,22 @@ C:\Users\patri\source\repos\SecuringApps\Securing\ShoppingCart.IOC\obj\Debug\net
 C:\Users\patri\source\repos\SecuringApps\Securing\ShoppingCart.IOC\obj\Debug\netcoreapp3.1\ShoppingCart.IOC.dll
 C:\Users\patri\source\repos\SecuringApps\Securing\ShoppingCart.IOC\obj\Debug\netcoreapp3.1\ShoppingCart.IOC.pdb
 C:\Users\patri\source\repos\SecuringApps\Securing\ShoppingCart.IOC\obj\Debug\netcoreapp3.1\ShoppingCart.IOC.genruntimeconfig.cache
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.IOC\bin\Debug\netcoreapp3.1\ShoppingCart.IOC.deps.json
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.IOC\bin\Debug\netcoreapp3.1\ShoppingCart.IOC.runtimeconfig.json
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.IOC\bin\Debug\netcoreapp3.1\ShoppingCart.IOC.runtimeconfig.dev.json
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.IOC\bin\Debug\netcoreapp3.1\ShoppingCart.IOC.dll
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.IOC\bin\Debug\netcoreapp3.1\ShoppingCart.IOC.pdb
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.IOC\bin\Debug\netcoreapp3.1\ShoppingCart.Application.dll
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.IOC\bin\Debug\netcoreapp3.1\ShoppingCart.Data.dll
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.IOC\bin\Debug\netcoreapp3.1\ShoppingCart.Domain.dll
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.IOC\bin\Debug\netcoreapp3.1\ShoppingCart.Application.pdb
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.IOC\bin\Debug\netcoreapp3.1\ShoppingCart.Data.pdb
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.IOC\bin\Debug\netcoreapp3.1\ShoppingCart.Domain.pdb
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.IOC\obj\Debug\netcoreapp3.1\ShoppingCart.IOC.csprojAssemblyReference.cache
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.IOC\obj\Debug\netcoreapp3.1\ShoppingCart.IOC.AssemblyInfoInputs.cache
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.IOC\obj\Debug\netcoreapp3.1\ShoppingCart.IOC.AssemblyInfo.cs
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.IOC\obj\Debug\netcoreapp3.1\ShoppingCart.IOC.csproj.CoreCompileInputs.cache
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.IOC\obj\Debug\netcoreapp3.1\ShoppingCart.IOC.csproj.CopyComplete
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.IOC\obj\Debug\netcoreapp3.1\ShoppingCart.IOC.dll
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.IOC\obj\Debug\netcoreapp3.1\ShoppingCart.IOC.pdb
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.IOC\obj\Debug\netcoreapp3.1\ShoppingCart.IOC.genruntimeconfig.cache

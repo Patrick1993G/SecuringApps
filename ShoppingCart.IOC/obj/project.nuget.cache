@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "c2BE29QPf0JAL5Xdoab/KQ/KhXjIJiK8GyQvHVTjIkIJ0u/MJc9UCgw5e2S1J3IzyhtP3/XdfNsimA4gTPzmaw==",
+  "dgSpecHash": "z93bxst9WdPOyENe8LqeE5cFsYLYSWxIROUXvDC627T1m0ZHGaLIZYTU8rNM1Nx6OcQ3/d7BegYLTxZ/k5TOhQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\patri\\source\\repos\\SecuringApps\\Securing\\ShoppingCart.IOC\\ShoppingCart.IOC.csproj",
+  "projectFilePath": "C:\\Users\\patri\\Dropbox\\Degree Year 2\\Security\\patrickGrechSWD6.2BSecurity\\Securing\\ShoppingCart.IOC\\ShoppingCart.IOC.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\patri\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\patri\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.0\\automapper.extensions.microsoft.dependencyinjection.8.1.0.nupkg.sha512",

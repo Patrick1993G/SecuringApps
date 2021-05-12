@@ -7514,11 +7514,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\patri\\source\\repos\\SecuringApps\\Securing\\ShoppingCart.IOC\\ShoppingCart.IOC.csproj",
+      "projectUniqueName": "C:\\Users\\patri\\Dropbox\\Degree Year 2\\Security\\patrickGrechSWD6.2BSecurity\\Securing\\ShoppingCart.IOC\\ShoppingCart.IOC.csproj",
       "projectName": "ShoppingCart.IOC",
-      "projectPath": "C:\\Users\\patri\\source\\repos\\SecuringApps\\Securing\\ShoppingCart.IOC\\ShoppingCart.IOC.csproj",
+      "projectPath": "C:\\Users\\patri\\Dropbox\\Degree Year 2\\Security\\patrickGrechSWD6.2BSecurity\\Securing\\ShoppingCart.IOC\\ShoppingCart.IOC.csproj",
       "packagesPath": "C:\\Users\\patri\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\patri\\source\\repos\\SecuringApps\\Securing\\ShoppingCart.IOC\\obj\\",
+      "outputPath": "C:\\Users\\patri\\Dropbox\\Degree Year 2\\Security\\patrickGrechSWD6.2BSecurity\\Securing\\ShoppingCart.IOC\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -7542,14 +7542,14 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\patri\\source\\repos\\SecuringApps\\Securing\\ShoppingCart.Application\\ShoppingCart.Application.csproj": {
-              "projectPath": "C:\\Users\\patri\\source\\repos\\SecuringApps\\Securing\\ShoppingCart.Application\\ShoppingCart.Application.csproj"
+            "C:\\Users\\patri\\Dropbox\\Degree Year 2\\Security\\patrickGrechSWD6.2BSecurity\\Securing\\ShoppingCart.Application\\ShoppingCart.Application.csproj": {
+              "projectPath": "C:\\Users\\patri\\Dropbox\\Degree Year 2\\Security\\patrickGrechSWD6.2BSecurity\\Securing\\ShoppingCart.Application\\ShoppingCart.Application.csproj"
             },
-            "C:\\Users\\patri\\source\\repos\\SecuringApps\\Securing\\ShoppingCart.Data\\ShoppingCart.Data.csproj": {
-              "projectPath": "C:\\Users\\patri\\source\\repos\\SecuringApps\\Securing\\ShoppingCart.Data\\ShoppingCart.Data.csproj"
+            "C:\\Users\\patri\\Dropbox\\Degree Year 2\\Security\\patrickGrechSWD6.2BSecurity\\Securing\\ShoppingCart.Data\\ShoppingCart.Data.csproj": {
+              "projectPath": "C:\\Users\\patri\\Dropbox\\Degree Year 2\\Security\\patrickGrechSWD6.2BSecurity\\Securing\\ShoppingCart.Data\\ShoppingCart.Data.csproj"
             },
-            "C:\\Users\\patri\\source\\repos\\SecuringApps\\Securing\\ShoppingCart.Domain\\ShoppingCart.Domain.csproj": {
-              "projectPath": "C:\\Users\\patri\\source\\repos\\SecuringApps\\Securing\\ShoppingCart.Domain\\ShoppingCart.Domain.csproj"
+            "C:\\Users\\patri\\Dropbox\\Degree Year 2\\Security\\patrickGrechSWD6.2BSecurity\\Securing\\ShoppingCart.Domain\\ShoppingCart.Domain.csproj": {
+              "projectPath": "C:\\Users\\patri\\Dropbox\\Degree Year 2\\Security\\patrickGrechSWD6.2BSecurity\\Securing\\ShoppingCart.Domain\\ShoppingCart.Domain.csproj"
             }
           }
         }

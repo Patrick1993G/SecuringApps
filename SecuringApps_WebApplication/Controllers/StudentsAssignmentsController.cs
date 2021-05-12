@@ -18,17 +18,13 @@ namespace WebApplication.Controllers
     public class StudentsAssignmentsController : Controller
     {
         const string SessionKeyName = "_Id";
-        private readonly IAssignmentsService _assignmentsService;
         private readonly IStudentAssignmentsService _studentAssignmentsService;
-        private readonly ITeachersService _teachersService;
         private readonly IStudentsService _studentsService;
         private IWebHostEnvironment _environment;
         private readonly ILogger<StudentsAssignmentsController> _logger;
-        public StudentsAssignmentsController(ILogger<StudentsAssignmentsController> logger, IAssignmentsService assignmentsService, ITeachersService teachersService, IStudentsService studentsService, IStudentAssignmentsService studentAssignmentsService, IWebHostEnvironment environment)
+        public StudentsAssignmentsController(ILogger<StudentsAssignmentsController> logger,IStudentsService studentsService, IStudentAssignmentsService studentAssignmentsService, IWebHostEnvironment environment)
         {
-            _assignmentsService = assignmentsService;
             _studentAssignmentsService = studentAssignmentsService;
-            _teachersService = teachersService;
             _environment = environment;
             _studentsService = studentsService;
             _logger = logger;

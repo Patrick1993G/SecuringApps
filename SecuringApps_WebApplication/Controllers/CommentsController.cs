@@ -11,16 +11,14 @@ namespace WebApplication.Controllers
     public class CommentsController : Controller
     {
         const string SessionKeyName = "_Id";
-        private readonly IAssignmentsService _assignmentsService;
         private readonly IStudentAssignmentsService _studentAssignmentsService;
         private readonly ITeachersService _teachersService;
         private readonly IStudentsService _studentsService;
         private readonly ICommentsService _commentsService;
         private readonly ILogger<CommentsController> _logger;
-        public CommentsController(ILogger<CommentsController> logger,IAssignmentsService assignmentsService, ITeachersService teachersService,
+        public CommentsController(ILogger<CommentsController> logger, ITeachersService teachersService,
             IStudentsService studentsService, IStudentAssignmentsService studentAssignmentsService, ICommentsService commentsService)
         {
-            _assignmentsService = assignmentsService;
             _studentAssignmentsService = studentAssignmentsService;
             _teachersService = teachersService;
             _studentsService = studentsService;

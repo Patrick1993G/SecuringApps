@@ -1,8 +1,6 @@
 ﻿using ShoppingCart.Domain.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace ShoppingCart.Domain.Interfaces
 {
@@ -10,7 +8,7 @@ namespace ShoppingCart.Domain.Interfaces
     {
         IQueryable<Student> GetStudents();
         IQueryable<Student> GetStudentsByTeacher(Guid id);
-        Guid AddStudent(Student s);
+        Guid AddStudent(Student student);
 
         Student GetStudentByEmail(string email);
     }

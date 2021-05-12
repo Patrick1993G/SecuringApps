@@ -21,9 +21,9 @@ namespace ShoppingCart.Application.Services
             _teachersRepo = teachersRepository;
         }
 
-        public Guid AddTeacher(TeacherViewModel t)
+        public Guid AddTeacher(TeacherViewModel teacherViewModel)
         {
-            var teacher = _mapper.Map<Teacher>(t);
+            var teacher = _mapper.Map<Teacher>(teacherViewModel);
             _teachersRepo.AddTeacher(teacher);
             return teacher.Id;
         }

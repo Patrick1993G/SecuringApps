@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fbP257GXsMkylO1XUD4FuDdSMLvlUBZEdaB9P2xCAeESg2PvJrtwGKjWy80UjfzFwdguQlXU5+6DAf6tcZtsfA==",
+  "dgSpecHash": "jLrlrS2K1jyC5E0gJJ1oQLWjG7e2Lrj6kxN7z5nNxbLlrkNzzfTPmYO7jDJUBjYOjoN3DEP8gAqUF7B2DY5DDQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\patri\\source\\repos\\SecuringApps\\Securing\\ShoppingCart.Domain\\ShoppingCart.Domain.csproj",
+  "projectFilePath": "C:\\Users\\patri\\Dropbox\\Degree Year 2\\Security\\patrickGrechSWD6.2BSecurity\\Securing\\ShoppingCart.Domain\\ShoppingCart.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\patri\\.nuget\\packages\\castle.core\\4.4.0\\castle.core.4.4.0.nupkg.sha512",
     "C:\\Users\\patri\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",

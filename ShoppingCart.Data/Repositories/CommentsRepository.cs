@@ -2,9 +2,7 @@
 using ShoppingCart.Domain.Interfaces;
 using ShoppingCart.Domain.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace ShoppingCart.Data.Repositories
 {
@@ -17,14 +15,14 @@ namespace ShoppingCart.Data.Repositories
 
         }
 
-        public Guid AddComment(Comment c)
+        public Guid AddComment(Comment comment)
         {
-            c.Student = null;
-            c.Teacher = null;
-            c.StudentAssignment = null;
-            _context.Comments.Add(c);
+            comment.Student = null;
+            comment.Teacher = null;
+            comment.StudentAssignment = null;
+            _context.Comments.Add(comment);
             _context.SaveChanges();
-            return c.Id;
+            return comment.Id;
         }
 
         public Comment GetComment(Guid id)

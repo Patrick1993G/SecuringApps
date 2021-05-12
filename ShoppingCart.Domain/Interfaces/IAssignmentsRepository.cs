@@ -1,8 +1,6 @@
 ﻿using ShoppingCart.Domain.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace ShoppingCart.Domain.Interfaces
 {
@@ -10,7 +8,7 @@ namespace ShoppingCart.Domain.Interfaces
     {
         Assignment GetAssignment(Guid id);
         IQueryable<Assignment> GetAssignments();
-        Guid AddAssignment(Assignment a);
+        Guid AddAssignment(Assignment assignment);
 
     }
 }

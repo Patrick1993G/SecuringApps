@@ -28,3 +28,18 @@ C:\Users\patri\source\repos\SecuringApps\Securing\ShoppingCart.Data\obj\Debug\ne
 C:\Users\patri\source\repos\SecuringApps\Securing\ShoppingCart.Data\obj\Debug\netcoreapp3.1\ShoppingCart.Data.dll
 C:\Users\patri\source\repos\SecuringApps\Securing\ShoppingCart.Data\obj\Debug\netcoreapp3.1\ShoppingCart.Data.pdb
 C:\Users\patri\source\repos\SecuringApps\Securing\ShoppingCart.Data\obj\Debug\netcoreapp3.1\ShoppingCart.Data.genruntimeconfig.cache
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.Data\bin\Debug\netcoreapp3.1\ShoppingCart.Data.deps.json
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.Data\bin\Debug\netcoreapp3.1\ShoppingCart.Data.runtimeconfig.json
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.Data\bin\Debug\netcoreapp3.1\ShoppingCart.Data.runtimeconfig.dev.json
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.Data\bin\Debug\netcoreapp3.1\ShoppingCart.Data.dll
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.Data\bin\Debug\netcoreapp3.1\ShoppingCart.Data.pdb
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.Data\bin\Debug\netcoreapp3.1\ShoppingCart.Domain.dll
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.Data\bin\Debug\netcoreapp3.1\ShoppingCart.Domain.pdb
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.Data\obj\Debug\netcoreapp3.1\ShoppingCart.Data.csprojAssemblyReference.cache
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.Data\obj\Debug\netcoreapp3.1\ShoppingCart.Data.AssemblyInfoInputs.cache
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.Data\obj\Debug\netcoreapp3.1\ShoppingCart.Data.AssemblyInfo.cs
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.Data\obj\Debug\netcoreapp3.1\ShoppingCart.Data.csproj.CoreCompileInputs.cache
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.Data\obj\Debug\netcoreapp3.1\ShoppingCart.Data.csproj.CopyComplete
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.Data\obj\Debug\netcoreapp3.1\ShoppingCart.Data.dll
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.Data\obj\Debug\netcoreapp3.1\ShoppingCart.Data.pdb
+C:\Users\patri\Dropbox\Degree Year 2\Security\patrickGrechSWD6.2BSecurity\Securing\ShoppingCart.Data\obj\Debug\netcoreapp3.1\ShoppingCart.Data.genruntimeconfig.cache

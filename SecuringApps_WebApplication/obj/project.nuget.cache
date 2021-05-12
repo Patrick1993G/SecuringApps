@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "p9hlSnvbSegfx3wDbPmcVPRcVfX6jafaJitCENNDiYye2UceX7ZpJvwho1G7Q3933FOs9/+1Ju/zChWhkH19Qg==",
+  "dgSpecHash": "/abY9wCaHNNcVCoaYwxHWcCiioLKuYooU1jZ2UeZpUIxx02RXyYGT5AWVxMFU8op+Mv3MIjIvLjMUmhEDej+fg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\patri\\source\\repos\\SecuringApps\\Securing\\SecuringApps_WebApplication\\WebApplication.csproj",
+  "projectFilePath": "C:\\Users\\patri\\Dropbox\\Degree Year 2\\Security\\patrickGrechSWD6.2BSecurity\\Securing\\SecuringApps_WebApplication\\WebApplication.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\patri\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\patri\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.0\\automapper.extensions.microsoft.dependencyinjection.8.1.0.nupkg.sha512",
